@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'gabarito';
+  src: url('./assets/fonts/gabarito-variablefont_wght-webfont.woff2') format('woff2'),
+       url('./assets/fonts/gabarito-variablefont_wght-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+:root{
+  --text: #12191c;
+  --background: #ffffff;
+  --primary: #8eaab8;
+  --secondary: #c3d2da;
+  --accent: #02537E;
+
+  --base-font:16px;
+  --h1-font: 32px;
+  --h2-font: 28px;
+  --h3-font: 24px;
+  --h4-font: 20px;
+  --h5-font: 18px;
+
+  --nav-font: 20px;
+  --button-font: 20px;
+
+  --font-style: 'gabarito';
+
+}
+
+body {
+  padding: 50px;
+  font: 14px var(--font-style);
+}
+
+a {
+  color: #00B7FF;
+}

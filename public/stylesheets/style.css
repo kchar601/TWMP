@@ -12,7 +12,8 @@
   --background: #ffffff;
   --primary: #8eaab8;
   --secondary: #c3d2da;
-  --accent: #02537E;
+  --accent: #02537e;
+  --hover: rgba(0, 52, 80);
 
   --base-font:16px;
   --h1-font: 32px;
@@ -28,11 +29,25 @@
 
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  padding: 50px;
+  padding: 0;
+  margin: 0;
   font: 14px var(--font-style);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 a {
-  color: #00B7FF;
+  color: rgba(0, 52, 80, 0.443);
 }
+
+.prevent-select {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  }

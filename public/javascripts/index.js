@@ -7,6 +7,7 @@ async function getAnnouncements() {
     console.log('getAnnouncements');
     const response = await fetch('/api/getAnnouncements');
     const data = await response.json();
-    console.log(data);
-    return data;
+    console.log(data[0]);
+    document.querySelector('ann-bar').innerHTML = data[0].message;
 }
+

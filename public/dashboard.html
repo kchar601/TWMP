@@ -3,17 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>The Warrenton Meeeting Place</title>
     <link rel="stylesheet" href="stylesheets/style.css">
-    <script defer src="javascripts/components/ann-bar.js"></script>
     <script defer src="javascripts/components/nav-bar.js"></script>
     <script defer src="javascripts/components/foot-bar.js"></script>
     <script defer src="javascripts/components/connect-bar.js"></script>
+    <link rel="icon" type="image/x-icon" href="./images/twmplogo.png">
+
 </head>
 <body>
     <ann-bar></ann-bar>
     <nav-bar></nav-bar>
-    <connect-bar></connect-bar>
+
+    <!--
+    //TODO: create ability to add / delete announcements and set end dates
+
+    //TODO: create ability to add / delete FAQs
+
+    //TODO: create ability to add / delete meetings
+    -->
+
+
+
     <foot-bar></foot-bar>
+
+    <script>
+        window.addEventListener("load", (event) => {
+            checkPermissions();
+        });
+
+        async function checkPermissions(){
+            let response = await fetch('/api/permissions', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            let data = await response.json();
+
+            if(data.isAuthenticated){
+                console.log('logged in');
+                console.log(data.role);
+                // let admin = document.createElement('admin-bar');
+                // document.body.appendChild(admin);
+            }
+            else{
+                console.log('not logged in');
+            }
+        };
+    </script>
 </body>
 </html>

@@ -1,0 +1,362 @@
+{
+  "todotree": {
+    "tree": [
+      {
+        "key": 1697448645291,
+        "children": [
+          {
+            "key": 1697448670400,
+            "children": [],
+            "todo": {
+              "content": "create calendar with online and in-person meetings",
+              "id": 1697448670400,
+              "level": "default",
+              "done": false,
+              "start": 1697448670400
+            }
+          },
+          {
+            "key": 1697448692311,
+            "children": [],
+            "todo": {
+              "content": "connect calendar component with mongodb and load dynamically",
+              "id": 1697448692311,
+              "level": "default",
+              "done": false,
+              "start": 1697448692311
+            }
+          },
+          {
+            "key": 1697448724006,
+            "children": [],
+            "todo": {
+              "content": "link this to dashboard to have content changable",
+              "id": 1697448724006,
+              "level": "default",
+              "done": false,
+              "start": 1697448724006
+            }
+          }
+        ],
+        "todo": {
+          "content": "Meetings",
+          "id": 1697448645291,
+          "level": "warning",
+          "done": false,
+          "start": 1697448645291
+        }
+      },
+      {
+        "key": 1697448753095,
+        "children": [
+          {
+            "key": 1697448787596,
+            "children": [],
+            "todo": {
+              "content": "Create email contact form using nodemailer (sendInBlue or some other service)",
+              "id": 1697448787596,
+              "level": "default",
+              "done": false,
+              "start": 1697448787596
+            }
+          },
+          {
+            "key": 1697448807046,
+            "children": [],
+            "todo": {
+              "content": "have hero bar showing local address",
+              "id": 1697448807046,
+              "level": "default",
+              "done": false,
+              "start": 1697448807046
+            }
+          },
+          {
+            "key": 1697448825072,
+            "children": [],
+            "todo": {
+              "content": "include email address itself somewhere on the page",
+              "id": 1697448825072,
+              "level": "default",
+              "done": false,
+              "start": 1697448825072
+            }
+          }
+        ],
+        "todo": {
+          "content": "Contact",
+          "id": 1697448753095,
+          "level": "warning",
+          "done": false,
+          "start": 1697448753095
+        }
+      },
+      {
+        "key": 1697448842855,
+        "children": [
+          {
+            "key": 1697448848792,
+            "children": [],
+            "todo": {
+              "content": "Create about page about the building / company / business (their goals, etc.)",
+              "id": 1697448848792,
+              "level": "default",
+              "done": false,
+              "start": 1697448848792
+            }
+          },
+          {
+            "key": 1697448875952,
+            "children": [],
+            "todo": {
+              "content": "Maybe include information about the board members themselves?",
+              "id": 1697448875952,
+              "level": "default",
+              "done": false,
+              "start": 1697448875952
+            }
+          },
+          {
+            "key": 1697448889718,
+            "children": [],
+            "todo": {
+              "content": "again include address (and directions api?)",
+              "id": 1697448889718,
+              "level": "default",
+              "done": false,
+              "start": 1697448889718
+            }
+          }
+        ],
+        "todo": {
+          "content": "About",
+          "id": 1697448842855,
+          "level": "warning",
+          "done": false,
+          "start": 1697448842855
+        }
+      },
+      {
+        "key": 1697448928880,
+        "children": [
+          {
+            "key": 1697448935876,
+            "children": [],
+            "todo": {
+              "content": "Just needs to have questions / answers populated",
+              "id": 1697448935876,
+              "level": "default",
+              "done": false,
+              "start": 1697448935876
+            }
+          },
+          {
+            "key": 1697449138119,
+            "children": [],
+            "todo": {
+              "content": "Add past announcements section (?)",
+              "id": 1697449138119,
+              "level": "default",
+              "done": false,
+              "start": 1697449138119
+            }
+          }
+        ],
+        "todo": {
+          "content": "FAQ",
+          "id": 1697448928880,
+          "level": "warning",
+          "done": false,
+          "start": 1697448928880
+        }
+      },
+      {
+        "key": 1697448961602,
+        "children": [
+          {
+            "key": 1697449572188,
+            "children": [],
+            "todo": {
+              "content": "Modal needs to include media queries to resize for smaller screens",
+              "id": 1697449572188,
+              "level": "default",
+              "done": false,
+              "start": 1697449572188
+            }
+          }
+        ],
+        "todo": {
+          "content": "Login",
+          "id": 1697448961602,
+          "level": "warning",
+          "done": false,
+          "start": 1697448961602,
+          "focus": false,
+          "end": 1697448967953
+        }
+      },
+      {
+        "key": 1697448970613,
+        "children": [
+          {
+            "key": 1697448993150,
+            "children": [],
+            "todo": {
+              "content": "Include modal with tabs",
+              "id": 1697448993150,
+              "level": "default",
+              "done": false,
+              "start": 1697448993150
+            }
+          },
+          {
+            "key": 1697449001790,
+            "children": [
+              {
+                "key": 1697449017504,
+                "children": [],
+                "todo": {
+                  "content": "Ability to add / delete users (?)",
+                  "id": 1697449017504,
+                  "level": "default",
+                  "done": false,
+                  "start": 1697449017504
+                }
+              },
+              {
+                "key": 1697449038957,
+                "children": [],
+                "todo": {
+                  "content": "CRUD announcements",
+                  "id": 1697449038957,
+                  "level": "default",
+                  "done": false,
+                  "start": 1697449038957
+                }
+              },
+              {
+                "key": 1697449159149,
+                "children": [],
+                "todo": {
+                  "content": "CRUD faq questions",
+                  "id": 1697449159149,
+                  "level": "default",
+                  "done": false,
+                  "start": 1697449159149
+                }
+              },
+              {
+                "key": 1697449191509,
+                "children": [],
+                "todo": {
+                  "content": "CRUD calendar",
+                  "id": 1697449191509,
+                  "level": "default",
+                  "done": false,
+                  "start": 1697449191509
+                }
+              },
+              {
+                "key": 1697449267158,
+                "children": [],
+                "todo": {
+                  "content": "Retrieve email list ('mailto:' so that its already filled out)",
+                  "id": 1697449267158,
+                  "level": "default",
+                  "done": false,
+                  "start": 1697449267158
+                }
+              }
+            ],
+            "todo": {
+              "content": "Include the following functionalities:",
+              "id": 1697449001790,
+              "level": "success",
+              "done": false,
+              "start": 1697449001790
+            }
+          }
+        ],
+        "todo": {
+          "content": "Dashboard",
+          "id": 1697448970613,
+          "level": "warning",
+          "done": false,
+          "start": 1697448970613
+        }
+      },
+      {
+        "key": 1697449058649,
+        "children": [
+          {
+            "key": 1697449084462,
+            "children": [],
+            "todo": {
+              "content": "FIX: change to check for data date and if current date is after expiry then don't show",
+              "id": 1697449084462,
+              "level": "default",
+              "done": false,
+              "start": 1697449084462
+            }
+          }
+        ],
+        "todo": {
+          "content": "Announcements Bar",
+          "id": 1697449058649,
+          "level": "warning",
+          "done": false,
+          "start": 1697449058649
+        }
+      },
+      {
+        "key": 1697449313119,
+        "children": [
+          {
+            "key": 1697449354371,
+            "children": [],
+            "todo": {
+              "content": "Create design once we receive pictures to use",
+              "id": 1697449354371,
+              "level": "default",
+              "done": false,
+              "start": 1697449354371
+            }
+          },
+          {
+            "key": 1697449367615,
+            "children": [],
+            "todo": {
+              "content": "Refactor text from old home screen / fabricate new to fill out the page",
+              "id": 1697449367615,
+              "level": "default",
+              "done": false,
+              "start": 1697449367615
+            }
+          }
+        ],
+        "todo": {
+          "content": "Home page",
+          "id": 1697449313119,
+          "level": "warning",
+          "done": false,
+          "start": 1697449313119
+        }
+      }
+    ],
+    "expandKeys": [
+      1697448670400,
+      1697448935876
+    ],
+    "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
+    "add_mode": "bottom",
+    "virtual": false,
+    "showLine": false,
+    "playFontSize": 24,
+    "title": "twmp",
+    "autoSort": false,
+    "showEndTime": false,
+    "simpleMode": false,
+    "lang": "en",
+    "version": "1697449591705"
+  }
+}

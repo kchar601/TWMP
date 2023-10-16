@@ -1,16 +1,35 @@
 const express = require('express');
+const session = require('express-session');
 const { fstat } = require('fs');
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const path = require('path');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 var cookie = require('cookie');
+const mime = require('mime');
 const app = express()
 const port = 3000
-app.use(express.static('public'))
+app.use(express.static('public', {
+  setHeaders: (res, path) => {
+    if (mime.getType(path) === 'application/javascript') {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: 'Retro Bowl',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false,  // set to true if using HTTPS
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
+  }
+}));
 
 const uri = process.env.MONGO_URI;
 
@@ -39,6 +58,39 @@ async function run() {
   run().catch(console.dir);
 }
 
+app.get('/api/getFAQ', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  async function run() { 
+  try{
+    await client.connect();
+    const database = client.db("twmp");
+    await database.command({ ping: 1 });
+    const aggr = [{ $sort: { order: -1 } }];
+    const coll = database.collection('faqs');
+    const cursor = coll.aggregate(aggr);
+    const result = await cursor.toArray();
+    res.json(result);
+  }
+  catch(err){
+    console.log(err);
+  }
+  finally{
+    await client.close();
+  }
+}
+  run().catch(console.dir);
+})
+
 app.get('/api/getAnnouncements', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -52,13 +104,16 @@ app.get('/api/getAnnouncements', (req, res) => {
       }
   );
   async function run() { 
-    console.log("hello");
   try{
     await client.connect();
     const database = client.db("twmp");
     await database.command({ ping: 1 });
     const announcements = database.collection("announcements");
     const items = await announcements.find({}).toArray();
+    if (req.session.closedAnnouncements) {
+      console.log('announcement closed');
+      items[0].closed = true;
+    }
     res.json(items);
   }
   catch(err){
@@ -71,6 +126,105 @@ app.get('/api/getAnnouncements', (req, res) => {
   run().catch(console.dir);
 })
 
+app.get('/api/closedAnnouncements', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  async function run() { 
+  try{
+    req.session.closedAnnouncements = true;
+    res.json({ success: true });
+    console.log('closed announcements');
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+  run().catch(console.dir);
+}
+)
 
+app.post('/api/checkLogin', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  var user = {username: req.body.username};
+  async function run() {
+    try {
+      await client.connect();
+      const dbo = client.db("twmp");
+      await dbo.command({ ping: 1 });
+      console.log("Pinged your deployment. You successfully connected to MongoDB!");
+      const result = await dbo.collection("users").findOne(user);
+      if (result) {
+        console.log("user found");
+        const passwordMatch = await bcrypt.compare(req.body.password, result.password);
+        if (passwordMatch) {
+          req.session.isAuthenticated = true;
+          req.session.role = 'admin';
+          res.json([true]);
+        } else {
+          res.json([false]);
+        }
+      } else {
+        res.json([false]);
+      };
+    } catch (err) {
+      //console.error(err);
+    } finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+})
 
+app.get('/api/permissions', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  if (req.session.isAuthenticated) {
+    res.json({ isAuthenticated: true, role: req.session.role });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+});
 
+app.post('/api/addEmail', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  var email = {email: req.body.email};
+  async function run() {
+    try {
+      await client.connect();
+      const dbo = client.db("twmp");
+      await dbo.command({ ping: 1 });
+      const result = await dbo.collection("email_list").findOne(email);
+      if (result) {
+        console.log("email found");
+        res.json({success: false});
+      } else {
+        await dbo.collection("email_list").insertOne(email);
+        res.json({success: true});
+      };
+    } catch (err) {
+      console.error(err);
+    } finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+}
+)

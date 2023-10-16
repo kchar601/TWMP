@@ -9,10 +9,11 @@
 
 :root{
   --text: #12191c;
+  --light-text: rgb(62, 62, 62);
   --background: #ffffff;
   --primary: #8eaab8;
-  --secondary: #c3d2da;
-  --accent: #02537e;
+  --secondary: rgb(195, 210, 218);
+  --accent: rgb(2, 83, 126);
   --hover: rgba(0, 52, 80);
 
   --base-font:16px;
@@ -51,3 +52,38 @@ a {
   -ms-user-select: none;
   user-select: none;
   }
+
+.hero {
+  background: var(--primary);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  text-align: center;
+  font-size: var(--h1-font);
+}
+
+.content-wrapper{
+  margin: auto;
+  margin-top: 64px;
+  margin-bottom: 64px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  box-shadow: 8px 8px 8px var(--hover);
+  border: #02537e 1px solid;
+  border-radius: 8px;
+  width: 80%;
+}
+
+faq-question:not(:last-child) {
+  border-bottom: 2px solid var(--primary);
+}
+
+.fixed-width{
+  width: 100%;
+  max-width: 60%;
+}

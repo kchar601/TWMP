@@ -38,6 +38,12 @@ connectBarTemplate.innerHTML = `
         margin-right: 32px;
     }
 
+    @media only screen and (max-width: 768px) {
+        span {
+            margin-right: 8px;
+        }
+    }
+
 </style>
 <div>
     Get connected with us!

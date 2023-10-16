@@ -77,18 +77,77 @@ navBar.innerHTML = `
     .donate{
         margin-right: 16px;
     }
+
+    .logo{
+        display: flex;
+    }
+
+    .hamburger {
+        display: none;
+        height: fit-content;
+        margin: 16px;
+        padding: 8px 8px 4px 8px;
+    }
+
+    .hidden {
+    }
+
+    .donateWrapper {
+        width: 100%;
+        align-self: center;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    @media only screen and (max-width: 720px) {
+        ul {
+            flex-direction: column;
+            gap: 8px;
+            margin: 0px;
+            margin-bottom: 8px;
+            width: fit-content;
+        }
+
+        .hidden {
+        display: none;
+        }   
+
+        li {
+            display: block;
+            text-align: left;
+            width: 100%;
+        }
+
+        .logo {
+            margin-left: 4px;
+        }
+
+        nav {
+            flex-direction: column;
+            margin-bottom: 8px;
+        }
+
+        .hamburger {
+            display: block;
+        }
+    }
 </style>
 <nav>
-    <a href='/index.html'><img src="../../images/twmplogo.png"></a>
-    <ul>
+    <a href='/index.html' class="logo"><img src="../../images/twmplogo.png"></a>
+    <ul class="hidden">
         <a class="mainNav" href='/index.html'><li>Home</li></a>
         <a class="mainNav" href='/meetings.html'><li>Meetings</li></a>
         <a class="mainNav" href='/contact.html'><li>Contact</li></a>
         <a class="mainNav" href='/about.html'><li>About</li></a>
         <a class="mainNav" href='/faq.html'><li>FAQ</li></a>
+        <div class="donateWrapper">
+        <a class="donate"><button>Donate</button></a>
+        </div>
     </ul>
-    <a class="donate"><button>Donate</button></a>
 </nav>
+<button class="hamburger">
+    <svg xmlns="http://www.w3.org/2000/svg" height="1.75em" viewBox="0 0 448 512"><style>svg{fill:var(--background)}</style><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+</button>
 `;
 
 class NavBar extends HTMLElement {
@@ -96,7 +155,11 @@ class NavBar extends HTMLElement {
         super();
         const shadow = this.attachShadow({mode: 'open'});
         shadow.append(navBar.content.cloneNode(true));
-
+        const hamburger = shadow.querySelector('.hamburger');
+        const navList = shadow.querySelector('ul');
+        hamburger.addEventListener('click', () => {
+            navList.classList.toggle('hidden');
+        });
     }
 
     connectedCallback() {

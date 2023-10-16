@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>The Warrenton Meeeting Place</title>
     <link rel="stylesheet" href="stylesheets/style.css">
-    <script defer src="javascripts/components/ann-bar.js"></script>
     <script defer src="javascripts/components/nav-bar.js"></script>
     <script defer src="javascripts/components/foot-bar.js"></script>
     <script defer src="javascripts/components/connect-bar.js"></script>
+    <script defer src="javascripts/components/login-modal.js"></script>
+    <link rel="icon" type="image/x-icon" href="./images/twmplogo.png">
+
 </head>
 <body>
     <ann-bar></ann-bar>
     <nav-bar></nav-bar>
-    <connect-bar></connect-bar>
+    <div class="content-wrapper fixed-width">
+        <login-modal></login-modal>
+    </div>
     <foot-bar></foot-bar>
 </body>
 </html>

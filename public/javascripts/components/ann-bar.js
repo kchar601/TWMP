@@ -53,17 +53,43 @@ class AnnouncementsBar extends HTMLElement {
         super();
         const shadow = this.attachShadow({mode: 'open'});
         shadow.append(annBar.content.cloneNode(true));
+        getAnnouncements();
     }
 
+    static get observedAttributes() {
+        return ['closed'];
+    }
 
     connectedCallback() {
-        console.log('connected');
         this.shadowRoot.querySelector('#closeAnnouncement').addEventListener('click', () => {
             console.log('clicked');
-            this.style.display = 'none';
+            this.setAttribute('closed', true);
+            setAnnouncements();
         })
     }
+
+    attributeChangedCallback(name, oldVal, newVal) {
+        console.log(name, oldVal, newVal);
+        if (name === 'closed'){
+            console.log('closed');
+            this.style.display = 'none';
+        }
+    }
+
+}
+
+async function setAnnouncements() {
+    await fetch('/api/closedAnnouncements');
+}
+
+async function getAnnouncements() {
+    const response = await fetch('/api/getAnnouncements');
+    const data = await response.json();
+    console.log(data[0]);
+    if (data[0].closed){
+        document.querySelector('ann-bar').setAttribute('closed', true);
+    }
+    document.querySelector('ann-bar').textContent = data[0].message;
 }
 
 customElements.define('ann-bar', AnnouncementsBar)
-

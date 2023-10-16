@@ -17,6 +17,7 @@ footBar.innerHTML = `
         flex-direction: row;
         padding: 0px 64px;
         justify-content: space-evenly;
+        flex-wrap: wrap;
     }
 
     .prevent-select {
@@ -125,9 +126,38 @@ footBar.innerHTML = `
         background-color: transparent;
         font-weight: normal;
     }
+
+    .small-text {
+        display: flex;
+        width: 100%;
+        border-top: 1px solid var(--accent);
+        font-size: 12px;
+        margin: 0px;
+        padding: 32px 0px 0px 0px;
+        justify-content: center;
+    }
+
+    @media only screen and (max-width: 768px) {
+        footer{
+            margin: auto;
+            padding: 0px;
+        }
+        .special{
+            width: fit-content;
+        }
+        div{
+            width: fit-content;
+        }
+    }
+
+    @media only screen and (max-width: 486px) {
+        .logo {
+            padding-top:16px;
+        }
+    }
 </style>
 <div class="hero">
-    <a class="noHover" href='/index.html'><img src="../../images/twmplogo.png"></a>
+    <a class="noHover logo" href='/index.html'><img src="../../images/twmplogo.png"></a>
     <h2 class="prevent-select">The Warrenton Meeting Place</h2>
 </div>
 <footer>
@@ -143,13 +173,6 @@ footBar.innerHTML = `
         </ul>
     </div>
     <div>
-        <h3 class="prevent-select">Other Recovery Links</h3>
-        <ul>
-            <a href="https://www.youtube.com/c/AlcoholicsAnonymousWorldServicesInc"><li class="runOff">Alcoholics Anonymous World Services YouTube Channel</li></a>
-            <a href="http://www.aa.org/"><li>Alcoholics Anymous Website</li></a>
-        </ul>
-    </div>
-    <div>
         <h3 class="prevent-select">Admin</h3>
         <ul>
             <a href="/login.html"><li>Login</li></a>
@@ -157,20 +180,27 @@ footBar.innerHTML = `
         </ul>
     </div>
     <div>
+        <h3 class="prevent-select">Other Recovery Links</h3>
+        <ul>
+            <a href="https://www.youtube.com/c/AlcoholicsAnonymousWorldServicesInc"><li class="runOff">Alcoholics Anonymous World Services YouTube Channel</li></a>
+            <a href="http://www.aa.org/"><li>Alcoholics Anymous Website</li></a>
+        </ul>
+    </div>
+    <div>
         <h3 class="prevent-select">Want to stay up to date?</h3>
         <h4 class="prevent-select">Consider subscribing to our mailing list<h4>
-        <ul>
-            <form>
-            
+        <ul>          
             <li>
                 <label for="email" class="hide">Email address:</label>
-                <input type="text" placeholder="johnDoe22@gmail.com"></input>
-                <button type="submit">Subscribe</button>
+                <input type="text" id="emailList" placeholder="Enter email address">
+                <button type="submit" onclick="return addEmail()">Subscribe</button>
             </li>
-            </form>
         </ul>
     </div>
 </footer>
+<div class="hero">
+    <p class="prevent-select small-text">© The Warrenton Meeting Place 2023</p>
+</div>
 `;
 
 class FootBar extends HTMLElement {
@@ -180,22 +210,31 @@ class FootBar extends HTMLElement {
         shadow.append(footBar.content.cloneNode(true));
     }
 
-    connectedCallback() {
-        //implementation
-    }
-
-    disconnectedCallback() {
-        //implementation
-    }
-
-    attributeChangedCallback(name, oldVal, newVal) {
-        //implementation
-    }
-
-    adoptedCallback() {
-        //implementation
-    }
-
 }
 
 window.customElements.define('foot-bar', FootBar);
+
+async function addEmail(){
+    const email = document.querySelector('foot-bar').shadowRoot.querySelector('#emailList').value;
+    if(email == ""){
+        alert("Please enter a valid email address"); 
+        return false;
+    };
+    const body = {email: email};
+    const response = await fetch('/api/addEmail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body),
+    });
+    const result = await response.json();
+    if(result.success){
+        alert("Thank you for subscribing to our mailing list!");
+        return true;
+    }
+    else{
+        alert("An error occured. Please try again later.");
+        return false;
+    }
+}

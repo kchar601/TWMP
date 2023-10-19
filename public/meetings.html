@@ -8,6 +8,7 @@
     <script defer src="javascripts/components/nav-bar.js"></script>
     <script defer src="javascripts/components/foot-bar.js"></script>
     <script defer src="javascripts/components/connect-bar.js"></script>
+    <script defer src="javascripts/components/calendar-card.js"></script>
     <link rel="icon" type="image/x-icon" href="./images/twmplogo.png">
 
 </head>
@@ -16,11 +17,39 @@
     <ann-bar></ann-bar>
     <nav-bar></nav-bar>
 
-
-    <!--
-        TODO: create calendar with online and in-person meetings
-    -->
-
+    <div class="hero"><h2>TWMP Meetings</h2></div>
+    <div class="content-wrapper width-70">
+        <div class="tab-wrapper">
+            <button class="tab tab-active tab-first">In-person</button>
+            <button class="tab">Online</button>
+            <select name="day">
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday" selected>Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+            </select>
+            <select name="group">
+                <option value="AA">AA</option>
+                <option value="OA">OA</option>
+                <option value="ACOA">ACOA</option>
+        </div>
+        <table>
+            <tr>
+                <td>
+                    <calendar-card class="calendar-first"></calendar-card>
+                </td>
+                <td>
+                    <calendar-card></calendar-card>
+                </td>
+                <td>
+                    <calendar-card></calendar-card>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <connect-bar></connect-bar>
     <foot-bar></foot-bar>

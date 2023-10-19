@@ -29,7 +29,7 @@ connectBarTemplate.innerHTML = `
     }
 
     button:hover, button:active, button:focus {
-        background-color: var(--hover);
+        background-color: var(--accent-hover);
     }
 
     span {

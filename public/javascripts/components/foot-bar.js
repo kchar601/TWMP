@@ -2,7 +2,7 @@ const footBar = document.createElement('template');
 footBar.innerHTML = `
 <style>
     :host {
-        background-color: var(--secondary);
+        background-color: var(--background);
         display: flex;
         flex-direction: column;
         color: var(--text);
@@ -81,7 +81,7 @@ footBar.innerHTML = `
         border-radius: 8px;
         border: none;
         padding: 8px;
-        background-color: var(--background);
+        background-color: var(--background-hover);
         font-size: var(--h4-font);
         font-family: 'gabarito', sans-serif;
     }
@@ -97,7 +97,7 @@ footBar.innerHTML = `
     }
 
     button:hover, button:active, button:focus{
-        background-color: var(--hover);
+        background-color: var(--accent-hover);
     }
 
     a {
@@ -108,7 +108,7 @@ footBar.innerHTML = `
     }
 
     a:hover, a:active, a:focus {
-        background-color: var(--primary);
+        background-color: var(--background-hover);
         font-weight: bold;
     }
 
@@ -118,7 +118,7 @@ footBar.innerHTML = `
     }
 
     .special:hover, .special:active, .special:focus {
-        background-color: var(--hover);
+        background-color: var(--accent-hover);
         font-weight: normal;
     }
 

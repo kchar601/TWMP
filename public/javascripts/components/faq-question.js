@@ -7,15 +7,14 @@ faqQuestionTemplate.innerHTML = `
             color: var(--text-color);
             background-color: var(--background);
             font-family: 'gabarito', sans-serif;
-            background-color: transparent;
             width:100%;
+            border-radius: 8px;
         }
 
         .question {
             font-size: var(--h2-font);
             padding: 16px 16px;
             list-style: none;
-            background-color: transparent;
         }
 
         details {
@@ -25,7 +24,7 @@ faqQuestionTemplate.innerHTML = `
 
         .question:hover {
             cursor: pointer;
-            background-color: rgb(195, 210, 218, .5);
+            background-color: var(--background-hover);
         }
 
         details {
@@ -66,6 +65,17 @@ faqQuestionTemplate.innerHTML = `
             padding: 0px 48px;
             color: var(--light-text);
         }
+
+        .first{
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .last{
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
     </style>
     <div class="faq-question">
         <details>
@@ -95,7 +105,8 @@ window.customElements.define('faq-question', FaqQuestion);
 async function getFAQ() {
     const response = await fetch('/api/getFAQ');
     const data = await response.json();
-    addFAQ(data);
+    await addFAQ(data);
+    checkSiblings();
 }
 
 function addFAQ(data){
@@ -104,6 +115,11 @@ function addFAQ(data){
         `<faq-question question="${data[i].question}" answer="${data[i].answer}"></faq-question>`
         ;
     }
+}
+
+function checkSiblings(){
+    var select = document.querySelector('.content-wrapper').firstChild.shadowRoot.querySelector('.question').classList.add('first');
+    var select = document.querySelector('.content-wrapper').lastChild.shadowRoot.querySelector('.question').classList.add('last');
 }
 
 window.onload = () => {

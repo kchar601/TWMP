@@ -3,10 +3,12 @@ navBar.innerHTML = `
 <style>
     :host {
         display: flex;
-        background-color: var(--secondary);
+        background-color: var(--background);
         color: var(--text);
         font-family: 'gabarito', sans-serif;
         font-size: var(--nav-font);
+        border-bottom: 1px solid var(--accent);
+        padding-bottom: 8px;
     }
 
     nav {
@@ -42,7 +44,7 @@ navBar.innerHTML = `
     }
 
     .mainNav:hover, .mainNav:active, .mainNav:focus {
-        background-color: var(--primary);
+        background-color: var(--background-hover);
         font-weight: bold;
         animation: moving 5s infinite;
         -webkit-animation: moving .5s ease-in-out infinite alternate;
@@ -69,7 +71,7 @@ navBar.innerHTML = `
     }
 
     button:hover, button:active, button:focus{
-        background-color: var(--hover);
+        background-color: var(--accent-hover);
         animation: moving 5s infinite;
         -webkit-animation: moving .5s ease-in-out infinite alternate;
     }

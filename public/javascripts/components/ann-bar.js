@@ -3,12 +3,14 @@ annBar.innerHTML = `
 <style>
 :host {
     display: flex;
-    background-color: var(--accent);
+    background-color: var(--tertiary);
     color: var(--background);
     font-family: 'gabarito', sans-serif;
     font-size: var(--nav-font);
     justify-content: space-between;
     padding: 4px;
+    --secondary: #31080c;
+    --secondary-hover: #490f15;
   }
   
   #closeAnnouncement {
@@ -20,13 +22,13 @@ annBar.innerHTML = `
     font-size: var(--base-font);
     cursor: pointer;
     align-self: flex-end;
-    background-color: rgba(0, 52, 80, 0.5);
+    background-color: var(--secondary-hover);
     padding: 8px 10px 4px 10px;
     margin: 4px;
   }
 
     #closeAnnouncement:hover, #closeAnnouncement:focus {
-    background-color: rgba(0, 52, 80, 1);
+    background-color: var(--secondary);
     }
 
     div {
@@ -53,7 +55,6 @@ class AnnouncementsBar extends HTMLElement {
         super();
         const shadow = this.attachShadow({mode: 'open'});
         shadow.append(annBar.content.cloneNode(true));
-        getAnnouncements();
     }
 
     static get observedAttributes() {
@@ -70,9 +71,13 @@ class AnnouncementsBar extends HTMLElement {
 
     attributeChangedCallback(name, oldVal, newVal) {
         console.log(name, oldVal, newVal);
-        if (name === 'closed'){
+        if (name === 'closed' && newVal === 'true'){
             console.log('closed');
             this.style.display = 'none';
+        }
+        else if (name === 'closed' && newVal === false){
+            console.log('open');
+            this.style.display = 'flex';
         }
     }
 
@@ -86,10 +91,14 @@ async function getAnnouncements() {
     const response = await fetch('/api/getAnnouncements');
     const data = await response.json();
     console.log(data[0]);
-    if (data[0].closed){
-        document.querySelector('ann-bar').setAttribute('closed', true);
+    if (data[0].closed === false || data[0].closed === undefined){
+        document.querySelector('.target').innerHTML = `<ann-bar closed="false"></ann-bar>`;
+        document.querySelector('ann-bar').textContent = data[0].message;
     }
-    document.querySelector('ann-bar').textContent = data[0].message;
 }
 
-customElements.define('ann-bar', AnnouncementsBar)
+customElements.define('ann-bar', AnnouncementsBar);
+
+window.onload = () => {
+    getAnnouncements();
+}

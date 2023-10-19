@@ -111,7 +111,6 @@ app.get('/api/getAnnouncements', (req, res) => {
     const announcements = database.collection("announcements");
     const items = await announcements.find({}).toArray();
     if (req.session.closedAnnouncements) {
-      console.log('announcement closed');
       items[0].closed = true;
     }
     res.json(items);

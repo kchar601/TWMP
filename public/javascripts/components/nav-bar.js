@@ -163,11 +163,6 @@ class NavBar extends HTMLElement {
             navList.classList.toggle('hidden');
         });
     }
-
-    connectedCallback() {
-
-    }
-
 }
 
 window.customElements.define('nav-bar', NavBar);

@@ -91,23 +91,6 @@ class LoginModal extends HTMLElement {
         var template = loginTemplate.content.cloneNode(true);
         shadow.append(template);
     }
-
-    connectedCallback() {
-        //implementation
-    }
-
-    disconnectedCallback() {
-        //implementation
-    }
-
-    attributeChangedCallback(name, oldVal, newVal) {
-        //implementation
-    }
-
-    adoptedCallback() {
-        //implementation
-    }
-
 }
 
 window.customElements.define('login-modal', LoginModal);

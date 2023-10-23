@@ -64,23 +64,6 @@ class connectBar extends HTMLElement {
         const shadow = this.attachShadow({mode: 'open'});
         shadow.append(connectBarTemplate.content.cloneNode(true));
     }
-
-    connectedCallback() {
-        //implementation
-    }
-
-    disconnectedCallback() {
-        //implementation
-    }
-
-    attributeChangedCallback(name, oldVal, newVal) {
-        //implementation
-    }
-
-    adoptedCallback() {
-        //implementation
-    }
-
 }
 
 window.customElements.define('connect-bar', connectBar);

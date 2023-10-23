@@ -8,7 +8,8 @@
     <script defer src="javascripts/components/nav-bar.js"></script>
     <script defer src="javascripts/components/foot-bar.js"></script>
     <script defer src="javascripts/components/connect-bar.js"></script>
-    <script defer src="javascripts/components/calendar-card.js"></script>
+    <script defer src="javascripts/components/tab-bar.js"></script>
+    <script defer src="javascripts/components/meeting-details.js"></script>
     <link rel="icon" type="image/x-icon" href="./images/twmplogo.png">
 
 </head>
@@ -18,39 +19,18 @@
     <nav-bar></nav-bar>
 
     <div class="hero"><h2>TWMP Meetings</h2></div>
-    <div class="content-wrapper width-70">
-        <div class="tab-wrapper">
-            <button class="tab tab-active tab-first">In-person</button>
-            <button class="tab">Online</button>
-            <select name="day">
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday" selected>Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
-            </select>
-            <select name="group">
-                <option value="AA">AA</option>
-                <option value="OA">OA</option>
-                <option value="ACOA">ACOA</option>
+    <div class="content-wrapper border-thick">
+        <tab-bar></tab-bar>
+        <div class="calendar-wrapper">
+            <div id="Monday" class="calendar-card first"></div>
+            <div id="Tuesday" class="calendar-card"></div>
+            <div id="Wednesday" class="calendar-card"></div>
+            <div id="Thursday" class="calendar-card"></div>
+            <div id="Friday" class="calendar-card"></div>
+            <div id="Saturday" class="calendar-card"></div>
+            <div id="Sunday" class="calendar-card last"></div>
         </div>
-        <table>
-            <tr>
-                <td>
-                    <calendar-card class="calendar-first"></calendar-card>
-                </td>
-                <td>
-                    <calendar-card></calendar-card>
-                </td>
-                <td>
-                    <calendar-card></calendar-card>
-                </td>
-            </tr>
-        </table>
     </div>
-
     <connect-bar></connect-bar>
     <foot-bar></foot-bar>
 </body>

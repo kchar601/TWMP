@@ -227,3 +227,52 @@ app.post('/api/addEmail', function(req, res){
   run().catch(console.dir);
 }
 )
+
+app.post('/api/filterMeetings', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  var selectedType = req.body.type;
+  var selectedMedium = req.body.medium || "in-person";
+  async function run() { 
+  try{
+    await client.connect();
+    const coll = client.db("twmp").collection("meetings");
+    const cursor = coll.aggregate([
+      {
+        $match: {
+            $and: [
+                {
+                    $expr: {
+                        $cond: [
+                            { $eq: [selectedType, ""] },
+                            {},
+                            { $eq: ["$type", selectedType] }
+                        ]
+                    }
+                },
+                { "medium": selectedMedium }
+            ]
+        }
+    }
+  ]);
+    const result = await cursor.toArray();
+    res.json(result);
+  }
+  catch(err){
+    console.log(err);
+  }
+  finally{
+    await client.close();
+  }
+}
+  run().catch(console.dir);
+})

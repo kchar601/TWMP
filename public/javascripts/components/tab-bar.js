@@ -15,8 +15,8 @@ tabBarTemplate.innerHTML = /*html*/`
         }
 
         .tab{
-            font: var(--font-style);
-            font-size: var(--button-font);
+            font-family: var(--head-font-type);
+            font-size: var(--h4-font);
             padding: 12px 16px;
             border: none;
             background-color: var(--background);
@@ -41,11 +41,18 @@ tabBarTemplate.innerHTML = /*html*/`
 
         .filter{
             padding:8px;
+            align-self: center;
         }
 
         select{
-            font-size: var(--base-font);
+            font-size: var(--body-font);
             padding:4px;
+            border-radius: 4px;
+            font-family: var(--body-font-type);
+        }
+        label {
+            width: fit-content;
+            font-size: var(--h5-font);
         }
     </style>
     <div class="tab-row">
@@ -53,7 +60,10 @@ tabBarTemplate.innerHTML = /*html*/`
     <button class="tab" id="online">Online</button>
     </div>
     <div class="filter">
-    <select name="group" id="day" onchange="handleSelection('day')">
+    <label for="open">Open:</label>
+    <input type="checkbox" id="open" name="open" value="open" onchange="handleSelection()">
+    <label for="day">Group:</label>
+    <select name="group" id="day" onchange="handleSelection()">
         <option value="all">All</option>
         <option value="AA">AA</option>
         <option value="OA">OA</option>
@@ -65,14 +75,18 @@ tabBarTemplate.innerHTML = /*html*/`
 class TabBar extends HTMLElement {
     constructor() {
         super();
-        this.medium = 'in-person';
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(tabBarTemplate.content.cloneNode(true));
-        filterSelect('');        
+        this.setAttribute('medium', 'in-person');
+        filterSelect('none', '', ''); 
     }
 
     static get observedAttributes() {
         return ['medium'];
+    }
+
+    set medium(val) {
+        this.setAttribute('medium', val);
     }
 
     connectedCallback() {
@@ -85,10 +99,6 @@ class TabBar extends HTMLElement {
         });
     }    
 
-    disconnectedCallback() {
-        //implementation
-    }
-
     attributeChangedCallback(name, oldVal, newVal) {
         if(name === 'medium'){
             var tabs = this.shadowRoot.querySelectorAll('.tab');
@@ -97,46 +107,60 @@ class TabBar extends HTMLElement {
             });
             var active = this.shadowRoot.querySelector("#" + newVal);
             active.classList.add('tab-active');
+            handleSelection();
         }
-    }
-
-    adoptedCallback() {
-        //implementation
     }
 }
 
 window.customElements.define('tab-bar', TabBar);
 
 function handleSelection() {
-    const select = document.querySelector('tab-bar').shadowRoot.getElementById('day');
-    const selectedValue = select.value;
-    groupSelect(selectedValue);
+    var day = document.querySelector('tab-bar').shadowRoot.getElementById('day').value;
+    var open = document.querySelector('tab-bar').shadowRoot.getElementById('open').checked;
+    console.log("Day selected:", day);
+    console.log("Open selected:", open);
+    if (day === 'all') {
+        day = '';
+    }
+    if(document.querySelector('tab-bar').shadowRoot.getElementById('open').checked){
+        filterSelect('both', day, true);
+    }
+    else {
+        filterSelect('type', day, '');
+    }
 }    
 
-function groupSelect(selectedValue) {
-    switch(selectedValue) {
-        case "all":
-            filterSelect('');
+async function filterSelect(filter, value, openVal){
+    const mediumVal = document.querySelector('tab-bar').getAttribute('medium');
+    console.log(mediumVal);
+    console.log("Filtering by:", filter, value, openVal, mediumVal);
+    switch(filter){
+        case "type":
+            var input = {
+                type: value,
+                medium: mediumVal
+            };
             break;
-        case "AA":
-            filterSelect('AA');
+        case "open":
+            var input = {
+                open: value,
+                medium: mediumVal
+            };
             break;
-        case "OA":
-            filterSelect('OA');
+        case "both":
+            var input = {
+                type: value,
+                open: openVal,
+                medium: mediumVal
+            };
             break;
-        case "ACOA":
-            filterSelect('ACOA');
+        default:
+            var input = {
+                medium: mediumVal
+            };
             break;
     }
-}
-
-async function filterSelect(value){
-    console.log(value);
-    const mediumVal = document.querySelector('tab-bar').getAttribute('medium');
-    const input = {
-        type: value,
-        medium: mediumVal
-    };
+    console.log(input);
     const response = await fetch('/api/filterMeetings', {
         method: 'POST',
         headers: {

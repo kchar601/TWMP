@@ -1,5 +1,5 @@
 const connectBarTemplate = document.createElement('template');
-connectBarTemplate.innerHTML = `
+connectBarTemplate.innerHTML = /*html*/`
 <style>
     :host {
         background-color: var(--accent);
@@ -15,7 +15,7 @@ connectBarTemplate.innerHTML = `
     div {
         display: flex;
         align-items: center;
-        margin-left: 32px;
+        margin-left: 16px;
     }
 
     .seamless {
@@ -35,7 +35,7 @@ connectBarTemplate.innerHTML = `
     span {
         justify-content: flex-end;
         align-self: flex-end;
-        margin-right: 32px;
+        margin-right: 16px;
     }
 
     @media only screen and (max-width: 768px) {

@@ -1,36 +1,34 @@
-@font-face {
-  font-family: 'gabarito';
-  src: url('./assets/fonts/gabarito-variablefont_wght-webfont.woff2') format('woff2'),
-       url('./assets/fonts/gabarito-variablefont_wght-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-
-}
+@import url('https://fonts.googleapis.com/css?family=Gabarito:700|Georama:400');
 
 :root{
   --text: #000000;
-  --background: #FBFBFF;
-  --background-hover: #c8c8d2;
-  --primary: #b1b1cf;
-  --primary-hover: #9494b1;
+  --background: #fbfdff;
+  --background-hover: #ccd3da;
+  --primary: #ac49bd;
+  --primary-hover: #863595;
   --secondary: #0f7aa8;
   --secondary-hover: #006894;
-  --tertiary: #A71D31;
-  --tertiary-hover: #e82842;
+  --tertiary: #10b274;
+  --tertiary-hover: #0d8c5b;
   --accent: #0B4F6C;
   --accent-hover: #003f5a;
+  --fourth-color: rgb(201, 136, 15);
+  --fourth-color-hover: rgb(161, 106, 15);
 
-  --base-font:16px;
-  --h1-font: 32px;
-  --h2-font: 28px;
-  --h3-font: 24px;
-  --h4-font: 20px;
-  --h5-font: 18px;
+  --body-font:16px;
+  --h1-font: 4.210rem;
+  --h2-font: 3.158rem;
+  --h3-font: 2.369rem;
+  --h4-font: 1.777rem;
+  --h5-font: 1.333rem;
 
-  --nav-font: 20px;
-  --button-font: 20px;
+  --small-font: 0.750rem;
 
-  --font-style: 'gabarito';
+  --nav-font: var(--h5-font);
+  --button-font: var(--h5-font);
+
+  --body-font-type: 'Georama';
+  --head-font-type: 'Gabarito';
 
 }
 
@@ -41,7 +39,7 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font: 14px var(--font-style);
+  font: 14px var(--body-font-type);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -68,7 +66,8 @@ a {
   height: 100%;
   padding: 0 20px;
   text-align: center;
-  font-size: var(--h1-font);
+  font-size: var(--h2-font);
+  font-family: var(--head-font-type);
 }
 
 .content-wrapper{
@@ -81,7 +80,7 @@ a {
   box-shadow: 6px 10px 8px #888888;
   border: #02537e 1px solid;
   border-radius: 8px;
-  width: fit-content;
+  width: 80%;
   background-color: transparent;
 }
 
@@ -104,10 +103,6 @@ h2{
   width: 100%;
 }
 
-meeting-details {
-  border: 1px solid red; /* Just for debugging purposes */
-}
-
 .first{
   border-bottom-left-radius: 6px;
 }
@@ -117,25 +112,42 @@ meeting-details {
   border-right: none;
 }
 
-.calendar-card{
-  display: flex;
-  flex-direction: column;
+.calendar-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
   width: 100%;
   height: 100%;
   background-color: var(--background);
   color: var(--text-color);
   font-family: 'gabarito', sans-serif;
   border-right: var(--accent) 1px solid;
-  justify-content: start;
   gap: 16px;
+  text-align: center;
 }
-.calendar-card > h2{
+
+.calendar-card > h2 {
   padding: 8px 32px;
-  font-size: var(--h3-font);
+  font-size: var(--h5-font);
+  font-family: var(--body-font-type);
   text-shadow: none;
   border-bottom: var(--accent) 1px solid;
+  grid-row: 1; /* Explicitly placing the h2 in the first row */
 }
 
 .border-thick{
   border: var(--accent) 2px solid;
+}
+
+.meeting-Wrapper{
+  margin: 8px;
+  padding: 0px; 
+}
+
+meeting-details{
+  margin-bottom: 16px;
+}
+
+.login-modal{
+  width: 50%;
+  border-radius: 16px;
 }

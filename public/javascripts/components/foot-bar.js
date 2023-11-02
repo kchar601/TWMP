@@ -1,5 +1,5 @@
 const footBar = document.createElement('template');
-footBar.innerHTML = `
+footBar.innerHTML = /*html*/`
 <style>
     :host {
         background-color: var(--background);
@@ -7,9 +7,10 @@ footBar.innerHTML = `
         flex-direction: column;
         color: var(--text);
         font-family: 'gabarito', sans-serif;
-        font-size: var(--base-font);
+        font-size: var(--body-font);
         width: 100%;
         padding-bottom: 32px;
+        border-top: 2px solid var(--accent);
     }
 
     footer {
@@ -33,25 +34,26 @@ footBar.innerHTML = `
     }
 
     h2{
-        font-size: var(--h2-font);
+        font-size: var(--h3-font);
         margin-left: 8px;
     }
 
     h3{
-        font-size: var(--h3-font);
+        font-size: var(--h5-font);
         margin-bottom: 4px;
     }
 
     h4{
-        font-size: var(--h4-font);
+        font-size: var(--body-font);
         margin:0px;
-
+        font-family: var(--body-font-type);
     }
 
     .hero {
         padding: 16px 16px 0 16px;
         display: flex;
         height: fit-content;
+        align-items: center;
     }
 
     .runOff{
@@ -67,10 +69,10 @@ footBar.innerHTML = `
     }
 
     li {
-        font-size: var(--h5-font);
+        font-size: var(--body-font);
         border-radius: 8px;
         padding: 8px;
-
+        font-family: var(--body-font-type);
     }
 
     .hide {
@@ -82,16 +84,15 @@ footBar.innerHTML = `
         border: none;
         padding: 8px;
         background-color: var(--background-hover);
-        font-size: var(--h4-font);
-        font-family: 'gabarito', sans-serif;
+        font-size: var(--body-font);
+        font-family: var(--body-font-type);
     }
 
     button{
         background-color:var(--accent);
         border: none;
         color: var(--background);
-        font-size: var(--h5-font);
-        font-family: 'gabarito', sans-serif;
+        font-size: var(--body-font);
         padding: 8px;
         border-radius: 8px;
     }
@@ -131,7 +132,7 @@ footBar.innerHTML = `
         display: flex;
         width: 100%;
         border-top: 1px solid var(--accent);
-        font-size: 12px;
+        font-size: var(--small-font);
         margin: 0px;
         padding: 32px 0px 0px 0px;
         justify-content: center;

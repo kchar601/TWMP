@@ -1,5 +1,5 @@
 const navBar = document.createElement('template');
-navBar.innerHTML = `
+navBar.innerHTML = /*html*/`
 <style>
     :host {
         display: flex;
@@ -7,7 +7,7 @@ navBar.innerHTML = `
         color: var(--text);
         font-family: 'gabarito', sans-serif;
         font-size: var(--nav-font);
-        border-bottom: 1px solid var(--accent);
+        border-bottom: 2px solid var(--accent);
         padding-bottom: 8px;
     }
 

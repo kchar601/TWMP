@@ -1,21 +1,22 @@
 const loginTemplate = document.createElement('template');
-loginTemplate.innerHTML = `
+loginTemplate.innerHTML = /*html*/`
     <style>
         :host {
             display: flex;
             flex-direction: column;
             color: var(--text-color);
-            background-color: var(--primary);
+            background-color: var(--background-hover);
             font-family: 'gabarito', sans-serif;
             width:100%;
-            border-radius: 8px;
+            border-radius: inherit;
         }
 
         .main-heading {
-            font-size: var(--h1-font);
+            font-size: var(--h2-font);
             font-weight: bold;
             padding: 16px;
             text-align: center;
+            margin-bottom: 0px;
         }
 
         .form {
@@ -30,7 +31,7 @@ loginTemplate.innerHTML = `
             display: flex;
             width: fit-content;
             padding: 8px 0px;
-            font-size: var(--h4-font);
+            font-size: var(--h5-font);
         }
 
         button {
@@ -41,13 +42,13 @@ loginTemplate.innerHTML = `
             border-radius: 8px;
             padding: 16px;
             margin: auto;
-            font-size: var(--h4-font);
+            font-size: var(--h5-font);
             margin-top: 32px;
         }
 
         button:hover {
             cursor: pointer;
-            background-color: var(--hover);
+            background-color: var(--accent-hover);
         }
 
         input {
@@ -55,7 +56,7 @@ loginTemplate.innerHTML = `
             border-radius: 8px;
             padding: 8px;
             margin: 8px 0px;
-            font-size: var(--h5-font);
+            font-size: var(--body-font);
         }
 
         .error {
@@ -66,7 +67,7 @@ loginTemplate.innerHTML = `
             margin-left: 8px;
             padding: 8px;
             margin: 8px 0px;
-            font-size: var(--h5-font);
+            font-size: var(--body-font);
         }
     </style>
 <div class="container">

@@ -11,8 +11,10 @@
               "content": "create calendar with online and in-person meetings",
               "id": 1697448670400,
               "level": "default",
-              "done": false,
-              "start": 1697448670400
+              "done": true,
+              "start": 1697448670400,
+              "focus": false,
+              "end": 1698897298520
             }
           },
           {
@@ -22,8 +24,10 @@
               "content": "connect calendar component with mongodb and load dynamically",
               "id": 1697448692311,
               "level": "default",
-              "done": false,
-              "start": 1697448692311
+              "done": true,
+              "start": 1697448692311,
+              "focus": false,
+              "end": 1698897303108
             }
           },
           {
@@ -36,6 +40,39 @@
               "done": false,
               "start": 1697448724006
             }
+          },
+          {
+            "key": 1698901840998,
+            "children": [],
+            "todo": {
+              "content": "format modal",
+              "id": 1698901840998,
+              "level": "default",
+              "done": false,
+              "start": 1698901840998
+            }
+          },
+          {
+            "key": 1698901858559,
+            "children": [],
+            "todo": {
+              "content": "ask for and add open status for online meetings",
+              "id": 1698901858559,
+              "level": "default",
+              "done": false,
+              "start": 1698901858560
+            }
+          },
+          {
+            "key": 1698901914239,
+            "children": [],
+            "todo": {
+              "content": "media query to collapse calendar into rows",
+              "id": 1698901914239,
+              "level": "default",
+              "done": false,
+              "start": 1698901914239
+            }
           }
         ],
         "todo": {
@@ -43,7 +80,8 @@
           "id": 1697448645291,
           "level": "warning",
           "done": false,
-          "start": 1697448645291
+          "start": 1697448645291,
+          "focus": true
         }
       },
       {
@@ -341,11 +379,47 @@
           "done": false,
           "start": 1697449313119
         }
+      },
+      {
+        "key": 1698902078048,
+        "children": [
+          {
+            "key": 1698902088937,
+            "children": [],
+            "todo": {
+              "content": "Include current forms from website to allow offline donations",
+              "id": 1698902088937,
+              "level": "default",
+              "done": false,
+              "start": 1698902088937
+            }
+          },
+          {
+            "key": 1698902115986,
+            "children": [],
+            "todo": {
+              "content": "add paypal api (modal) on page to allow donation without leaving the site",
+              "id": 1698902115986,
+              "level": "default",
+              "done": false,
+              "start": 1698902115986
+            }
+          }
+        ],
+        "todo": {
+          "content": "Donations Page",
+          "id": 1698902078048,
+          "level": "warning",
+          "done": false,
+          "start": 1698902078048
+        }
       }
     ],
     "expandKeys": [
       1697448670400,
-      1697448935876
+      1697448935876,
+      1697448645291,
+      1698902088937
     ],
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
@@ -357,6 +431,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1697772654504"
+    "version": "1698902147309"
   }
 }

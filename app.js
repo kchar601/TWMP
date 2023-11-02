@@ -240,39 +240,31 @@ app.post('/api/filterMeetings', function(req, res){
           }
       }
   );
-  var selectedType = req.body.type;
-  var selectedMedium = req.body.medium || "in-person";
-  async function run() { 
-  try{
-    await client.connect();
-    const coll = client.db("twmp").collection("meetings");
-    const cursor = coll.aggregate([
-      {
-        $match: {
-            $and: [
-                {
-                    $expr: {
-                        $cond: [
-                            { $eq: [selectedType, ""] },
-                            {},
-                            { $eq: ["$type", selectedType] }
-                        ]
-                    }
-                },
-                { "medium": selectedMedium }
-            ]
-        }
+    // Assuming `req.body` is your parsed JSON object from the client:
+    const { type, open, medium } = req.body;
+
+    let matchQuery = { "medium": medium };
+    if (type) {
+        matchQuery.type = type;
     }
-  ]);
-    const result = await cursor.toArray();
-    res.json(result);
-  }
-  catch(err){
-    console.log(err);
-  }
-  finally{
-    await client.close();
-  }
-}
-  run().catch(console.dir);
-})
+    if (open === true) {
+        matchQuery.open = open;
+    }
+  async function run(){
+    try{
+      const db = client.db('twmp');
+      const results = await db.collection('meetings').aggregate([
+        { $match: matchQuery }
+      ]).toArray();
+      res.json(results);
+    }
+    catch(err){
+      console.log(err);
+    }
+    finally{
+      await client.close();
+    }
+    }
+      run().catch(console.dir);
+  })
+    

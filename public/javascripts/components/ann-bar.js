@@ -1,9 +1,9 @@
 const annBar = document.createElement('template');
-annBar.innerHTML = `
+annBar.innerHTML = /*html*/`
 <style>
 :host {
     display: flex;
-    background-color: var(--tertiary);
+    background-color: #A71D31;
     color: var(--background);
     font-family: 'gabarito', sans-serif;
     font-size: var(--nav-font);
@@ -16,15 +16,21 @@ annBar.innerHTML = `
   #closeAnnouncement {
     background-color: rgb(255, 30, 0);
     border: 1px solid black;
-    border-radius: 50%;
-    color: black;
-    font-family: 'gabarito', sans-serif;
+    border-radius: 100%;
     font-size: var(--base-font);
     cursor: pointer;
     align-self: flex-end;
     background-color: var(--secondary-hover);
-    padding: 8px 10px 4px 10px;
-    margin: 4px;
+    margin: auto 16px;
+    position: relative;
+    width: 32px;
+    height: 32px;
+  }
+
+  svg{
+    position: absolute;
+    margin: auto;
+    inset: 0;
   }
 
     #closeAnnouncement:hover, #closeAnnouncement:focus {

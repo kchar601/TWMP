@@ -1,5 +1,5 @@
 const faqQuestionTemplate = document.createElement('template');
-faqQuestionTemplate.innerHTML = `
+faqQuestionTemplate.innerHTML = /*html*/`
     <style>
         :host {
             display: flex;
@@ -7,12 +7,15 @@ faqQuestionTemplate.innerHTML = `
             color: var(--text-color);
             background-color: var(--background);
             font-family: 'gabarito', sans-serif;
-            width:100%;
+            width: 100%;
             border-radius: 8px;
+            font-family: var(--body-font-type);
+            
         }
 
         .question {
-            font-size: var(--h2-font);
+            font-family: var(--head-font-type);
+            font-size: var(--h4-font);
             padding: 16px 16px;
             list-style: none;
         }
@@ -61,9 +64,8 @@ faqQuestionTemplate.innerHTML = `
         }
 
          .answer {
-            font-size: var(--h4-font);
+            font-size: var(--body-font);
             padding: 0px 48px;
-            color: var(--light-text);
         }
 
         .first{

@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Warrenton Meeeting Place</title>
     <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/contact.css">
     <script defer src="javascripts/components/nav-bar.js"></script>
     <script defer src="javascripts/components/foot-bar.js"></script>
     <script defer src="javascripts/components/connect-bar.js"></script>
+    <script defer src="javascripts/load-animation.js"></script>
+    <script defer src="javascripts/contact.js"></script>
     <link rel="icon" type="image/x-icon" href="./images/twmplogo.png">
 
 </head>
@@ -15,7 +18,27 @@
     <ann-bar></ann-bar>
     <nav-bar></nav-bar>
 
-
+    <div class="hero">
+        <h2>Contact Us</h2>
+    </div>
+    <div class="content-wrapper border-thick">
+        <h4>Find out more ways to help!</h4>
+        <div class="extra">
+        <span>There are so many ways to support our mission.</span>
+        <span>Contact us to find out more about volunteer opportunities, fundraising events, and ways to get our message to your friends and family.</span>
+        </div>
+        <i class="loader --6"></i>
+        <div class="form">
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput">
+            <label for="emailInput">Email:</label>
+            <input type="email" id="emailInput">
+            <label for="msgInput">Message:</label>
+            <textarea type="text" id="msgInput"></textarea>
+            <label for="emailList" class="inLine"><input type="checkbox" id="emailList">Sign up for our email list for updates, and more.</label>
+            <button onclick="return checkMsg()">Send</button>
+        </div>
+    </div>
     <!--
         TODO: create email contact form
     -->

@@ -50,10 +50,10 @@ footBar.innerHTML = /*html*/`
     }
 
     .hero {
-        padding: 16px 16px 0 16px;
         display: flex;
         height: fit-content;
         align-items: center;
+        width: 100%;
     }
 
     .runOff{
@@ -148,6 +148,9 @@ footBar.innerHTML = /*html*/`
         }
         div{
             width: fit-content;
+        }
+        .hero{
+            align-self: center;
         }
     }
 

@@ -15,12 +15,243 @@
     <ann-bar></ann-bar>
     <nav-bar></nav-bar>
 
-
-    <!--
-        TODO: create about section
-    -->
+    <div class="hero">
+        <h2>About Us</h2>
+    </div>
+    <div class="content-wrapper border-thick">
+        <div class="text-wrap">
+            <div>
+                <h4>Welcome to The Warrenton Meeting Place</h4>
+                <p>Greetings,</p>
+        
+                <p>We warmly invite you to join us at The Warrenton Meeting Place, fondly known as TWMP. As a dedicated non-profit, we're committed to providing a secure and friendly environment where individuals seeking recovery can find support and fellowship through 12-Step meetings and related activities.</p>
+        
+                <h5>What's Happening at TWMP?</h5>
+                <p>We are delighted to share that we are in the process of revitalizing our space. Our aim is to create a more comfortable and accessible setting that feels like a second home, where you can connect with others and find encouragement in your recovery journey.</p>
+        
+                <h5>Your Support Makes a Difference</h5>
+                <p>Contributions to TWMP are more than just donations; they're a legacy of support for the community. Please know that your generosity is treated with the utmost respect for your privacy and the option for tax-deductible receipts. Your kindness is the foundation that allows us to serve the recovery community today, and into the future.</p>
+        
+                <h5>Get in Touch</h5>
+                <p>If you have any questions or are interested in becoming more involved with TWMP, our Board of Directors is here to assist you. We understand the journey you're on and are here to offer support every step of the way.</p>
+        
+                <p>With sincere appreciation,</p>
+        
+                <h5>The Warrenton Meeting Place Board of Directors</h5>
+            </div>
+        <div class="collage">
+            <div class="sub">
+                <img src="./images/TWMP Pictures/thumbnail_IMG_2637.jpg" alt="Plaque dedicated to the anonymous Board of Directors and the Mayor of Warrenton">
+                <img src="./images/TWMP Pictures/thumbnail_IMG_2628.jpg" alt="AA Preamble">
+            </div>
+            <img src="./images/TWMP Pictures/thumbnail_IMG_2616.jpg" alt="Board of Directors" width="100%" class="bottom">
+        </div>
+    </div>
+    </div>
+    <div class="map-wrap">
+        <div id="map">
+        </div>
+        <div class="address-wrap">
+            <h4>Our Location</h4>
+            <p class="indent">26 South Third Street</p>
+            <p class="indent">Warrenton, VA 20186</p>
+            <a href="https://www.google.com/maps/dir//26+S+Third+St,+Warrenton,+VA+20186/@39.7642314,-79.1369156,8z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89b67d9e005b36d9:0x917ec1a27f814017!2m2!1d-77.7947286!2d38.7124836!3e0?entry=ttu"><button>Directions <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#ffffff}</style><path d="M350 334.5c3.8 8.8 2 19-4.6 26l-136 144c-4.5 4.8-10.8 7.5-17.4 7.5s-12.9-2.7-17.4-7.5l-136-144c-6.6-7-8.4-17.2-4.6-26s12.5-14.5 22-14.5h88l0-192c0-17.7-14.3-32-32-32H32C14.3 96 0 81.7 0 64V32C0 14.3 14.3 0 32 0l80 0c70.7 0 128 57.3 128 128l0 192h88c9.6 0 18.2 5.7 22 14.5z"/></svg></button></a>
+            </div>
+    </div>
 
     <connect-bar></connect-bar>
     <foot-bar></foot-bar>
+    
+    <style>
+        .indent{
+            margin: 0 0 0 16px;
+        }
+
+        h4{
+            font-size: var(--h4-font);
+        }
+
+        h5{
+            font-weight: 700;
+            font-size: var(--h5-font);
+            margin: 0;
+        }
+
+        h5:last-child{
+            font-size: var(--body-font);
+        }
+
+        p{
+            font-size: var(--body-font);
+        }
+
+        .collage{
+            display: grid;
+            grid-template-rows: auto;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .sub{
+            align-self: self-end;
+        }
+
+        .text-wrap{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .text-wrap > div:first-child{
+            padding: 16px 32px;
+        }
+
+        .sub{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .text-wrap img{
+            width: 100%;
+        }
+
+        .address-wrap{
+            display: grid;
+            grid-template-rows: auto;
+            align-items: center;
+            width: max-content;
+            margin: 16px 32px;
+        }
+
+        #map {
+            height: 300px; /* Example: Set a specific height */
+            width: 100%; /* Take the full width of the container */
+        }
+        .map-wrap{
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--accent);
+        }
+
+        .map-wrap button {
+            background-color: var(--secondary);
+            border: none;
+            color: var(--background);
+            font-size: var(--body-font);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        svg{
+            transform: rotate(270deg);
+            margin: 0 0 0 8px;
+        }
+
+        .map-wrap button:hover, .map-wrap button:focus {
+            background-color: var(--secondary-hover);
+        }
+
+        .map-wrap a {
+            width: fit-content;
+            height: fit-content;
+            border-radius: 8px;
+            margin: 16px auto;
+        }
+
+        .map-wrap h4{
+            margin: 0 0 16px 0;
+        }
+
+        .map-wrap > div:first-child{
+            border-right: 1px solid var(--accent);
+        }
+
+        @media screen and (max-width: 1000px){
+            .sub{
+                display: flex;
+                flex-direction: column;
+                height: fit-content;
+                align-self: flex-end;
+                align-items:last baseline;
+            }
+            .sub img{
+                height: 80%;
+                width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 720px) {
+            .text-wrap{
+                display: flex;
+                flex-direction: column;
+            }
+            .text-wrap > div:first-child{
+                padding: 16px;
+            }
+            .map-wrap{
+                display: flex;
+                flex-direction: column;
+            }
+            .map-wrap > div:first-child{
+                border-right: none;
+                border-bottom: 1px solid var(--accent);
+            }
+            .map-wrap button{
+                margin: 16px auto;
+            }
+            .map-wrap h4{
+                margin: 16px 0 0 0;
+            }
+            .map-wrap a{
+                margin: 0 auto;
+            }
+
+            .text-wrap img{
+                width: 100%;
+            }
+        }
+    </style>
+    <script>
+        function initMap() {
+        var twmpLocation = { lat: 38.712440, lng: -77.794770 };
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: twmpLocation,
+            zoom: 14,
+        });
+
+        var marker = new google.maps.Marker({
+            position: twmpLocation,
+            map: map,
+            title: 'The Warrenton Meeting Place',
+        });
+        }
+
+        async function fetchApiKey() {
+            try {
+                const response = await fetch('/maps-api-key'); // Replace with your server endpoint
+                const data = await response.json();
+                return data.apiKey; // Make sure your server sends the key in an `apiKey` field
+            } catch (error) {
+                console.error('Error fetching the API key:', error);
+                return null; // Handle the error appropriately
+            }
+        }
+
+        async function loadGoogleMapsScript() {
+        var googleMapsApiKey = await fetchApiKey();
+
+        var script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap`;
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+        }
+
+        window.addEventListener('load', loadGoogleMapsScript);
+
+    </script>
 </body>
 </html>

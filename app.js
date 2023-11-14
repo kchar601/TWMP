@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
-  secret: 'Retro Bowl',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -268,3 +268,7 @@ app.post('/api/filterMeetings', function(req, res){
       run().catch(console.dir);
   })
     
+  app.get('/maps-api-key', (req, res) => {
+    console.log('sending api key' + process.env.GOOGLE_MAPS_API_KEY);
+    res.json({ apiKey: process.env.GOOGLE_MAPS_API_KEY });
+  });

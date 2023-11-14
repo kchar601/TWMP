@@ -102,6 +102,14 @@ navBar.innerHTML = /*html*/`
     }
 
     @media only screen and (max-width: 720px) {
+        :host {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: fit-content;
+            padding: 0px;
+            margin-left: 0px;
+        }
+
         ul {
             flex-direction: column;
             gap: 8px;
@@ -121,7 +129,8 @@ navBar.innerHTML = /*html*/`
         }
 
         .logo {
-            margin-left: 4px;
+            width: fit-content;
+            height: fit-content;
         }
 
         nav {
@@ -131,6 +140,17 @@ navBar.innerHTML = /*html*/`
 
         .hamburger {
             display: block;
+            width: fit-content;
+            justify-self: end;
+        }
+
+        .mainNav{
+            width: fit-content;
+        }
+
+        img{
+            margin-left: 0px;
+            padding-left: 0px;
         }
     }
 </style>

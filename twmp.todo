@@ -48,8 +48,10 @@
               "content": "format modal",
               "id": 1698901840998,
               "level": "default",
-              "done": false,
-              "start": 1698901840998
+              "done": true,
+              "start": 1698901840998,
+              "focus": false,
+              "end": 1699464241148
             }
           },
           {
@@ -70,8 +72,10 @@
               "content": "media query to collapse calendar into rows",
               "id": 1698901914239,
               "level": "default",
-              "done": false,
-              "start": 1698901914239
+              "done": true,
+              "start": 1698901914239,
+              "focus": false,
+              "end": 1699463195782
             }
           }
         ],
@@ -139,8 +143,10 @@
               "content": "Create about page about the building / company / business (their goals, etc.)",
               "id": 1697448848792,
               "level": "default",
-              "done": false,
-              "start": 1697448848792
+              "done": true,
+              "start": 1697448848792,
+              "focus": false,
+              "end": 1699904754766
             }
           },
           {
@@ -150,8 +156,10 @@
               "content": "Maybe include information about the board members themselves?",
               "id": 1697448875952,
               "level": "default",
-              "done": false,
-              "start": 1697448875952
+              "done": true,
+              "start": 1697448875952,
+              "focus": false,
+              "end": 1699904757622
             }
           },
           {
@@ -161,8 +169,10 @@
               "content": "again include address (and directions api?)",
               "id": 1697448889718,
               "level": "default",
-              "done": false,
-              "start": 1697448889718
+              "done": true,
+              "start": 1697448889718,
+              "focus": false,
+              "end": 1699904760696
             }
           }
         ],
@@ -170,8 +180,10 @@
           "content": "About",
           "id": 1697448842855,
           "level": "warning",
-          "done": false,
-          "start": 1697448842855
+          "done": true,
+          "start": 1697448842855,
+          "focus": false,
+          "end": 1699904763527
         }
       },
       {
@@ -431,7 +443,13 @@
       1697448935876,
       1697448645291,
       1698902088937,
-      1697449313119
+      1697448753095,
+      1697449313119,
+      1698902078048,
+      1697449058649,
+      1697448970613,
+      1697448928880,
+      1697448961602
     ],
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
@@ -443,6 +461,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1698902270822"
+    "version": "1699904765605"
   }
 }

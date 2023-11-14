@@ -4,7 +4,7 @@ meetingTemplate.innerHTML = /*html*/`
         :host{
             display: flex;
             flex-direction: column;
-            height: fit-content;
+            height: 100%;
             color: white;
             font-family: var(--body-font-type);
             border-radius: 8px;
@@ -81,6 +81,7 @@ meetingTemplate.innerHTML = /*html*/`
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 11;
         }
 
         .open {
@@ -118,7 +119,7 @@ meetingTemplate.innerHTML = /*html*/`
             font-size:var(--h3-font);
         }
 
-        .modal-container span{
+        .modal-container span, .modal-container a{
             font-size:var(--h5-font);
         }
 
@@ -128,14 +129,23 @@ meetingTemplate.innerHTML = /*html*/`
             padding: 2px 8px;
             border-radius: 8px;
         }
+
+        @media (max-width: 1273px) AND (min-width: 0px) {
+            .meeting{
+                width: 100%;
+                justify-content: center;
+            }
+            .modal-button{
+                align-self: center;
+                width: 60%;
+            }
+        }
     </style>
     <a class="modal-button" data-modal="modal-one">
     <div class="meeting">
         <h4 class="name"></h4>
         <span class="group"></span>
         <span class="time"></span>
-        <span class="location"></span>
-        <span class="link"></span>
     </div>
     </a>
 
@@ -147,7 +157,8 @@ meetingTemplate.innerHTML = /*html*/`
             <span class="modal-group"></span>
             <span class="modal-time"></span>
             <span class="modal-location"></span>
-            <span class="modal-link"></span>
+            <span class="modal-open"></span>
+            <a class="modal-link"></a>
         <button class="modal-close modal-exit"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:red}</style><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg></button>
     </div>
     </div>
@@ -210,8 +221,13 @@ class MeetingDetails extends HTMLElement {
         if (this.hasAttribute('location')) {
             this.shadowRoot.querySelector('.modal-location').textContent = this.getAttribute('location');
         }
+        if(this.hasAttribute('open')){
+            console.log(this.getAttribute('open'));
+            this.hasAttribute('open') && this.getAttribute('open') !== 'false' ? this.shadowRoot.querySelector('.modal-open').textContent = 'Open Meeting' : this.shadowRoot.querySelector('.modal-open').textContent = 'Closed Meeting';
+        }
         if (this.hasAttribute('link')) {
-            this.shadowRoot.querySelector('.modal-link').textContent = this.getAttribute('link');
+            this.shadowRoot.querySelector('.modal-link').textContent = 'Join Meeting';
+            this.shadowRoot.querySelector('.modal-link').href = this.getAttribute('link');
         }
     }
 
@@ -222,7 +238,7 @@ class MeetingDetails extends HTMLElement {
       }
 
     static get observedAttributes() {
-        return ['name', 'group', 'time', 'type', 'location', 'link'];
+        return ['name', 'group', 'time', 'type', 'location', 'link', 'open'];
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
@@ -243,7 +259,10 @@ class MeetingDetails extends HTMLElement {
                 this.shadowRoot.querySelector('.modal-location').textContent = newVal;
                 break;
             case 'link':
-                this.shadowRoot.querySelector('.modal-link').textContent = newVal;
+                this.shadowRoot.querySelector('.modal-link').href = newVal;
+                break;
+            case 'open':
+                this.shadowRoot.querySelector('.modal-open').textContent = newVal;
                 break;
         }
     }
@@ -293,6 +312,7 @@ function addMeetingsToDOM(meetingsArray) {
         meetingElement.setAttribute('time', meeting.time);
         meetingElement.setAttribute('type', meeting.type);
         meetingElement.setAttribute('group', meeting.group);
+        meetingElement.setAttribute('open', meeting.open);
         if (meeting.location != undefined){
             meetingElement.setAttribute('location', meeting.location);
         }
@@ -301,4 +321,5 @@ function addMeetingsToDOM(meetingsArray) {
         }
         meetingsContainer.appendChild(meetingElement);
     });
+    hideLoader();
 }

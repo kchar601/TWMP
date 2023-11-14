@@ -117,6 +117,7 @@ function addFAQ(data){
         `<faq-question question="${data[i].question}" answer="${data[i].answer}"></faq-question>`
         ;
     }
+    hideLoader();
 }
 
 function checkSiblings(){
@@ -125,5 +126,6 @@ function checkSiblings(){
 }
 
 window.onload = () => {
+    showLoader();
     getFAQ();
 }

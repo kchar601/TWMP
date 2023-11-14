@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Gabarito:700|Georama:400');
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@700&family=Georama:wght@400;700&display=swap');
 
 :root{
   --text: #000000;
@@ -30,6 +30,8 @@
   --body-font-type: 'Georama';
   --head-font-type: 'Gabarito';
 
+  --size-square: 50px; /* Example size of the square */
+  --color: #ff3d00; /* Example color of the square */
 }
 
 html {
@@ -42,8 +44,77 @@ body {
   font: 14px var(--body-font-type);
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: auto;
   background: var(--background);
+}
+
+.loader {
+  --color: var(--secondary);
+  --size-mid: 6vmin;
+  --size-dot: 1.5vmin;
+  --size-bar: 0.4vmin;
+  --size-square: 3vmin;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.2);
+
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+}
+
+.loader.visible {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+}
+
+.loader::before,
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+}
+
+.loader.--6::before {
+  width: 25px;
+  height: 25px;
+  background-color: var(--color);
+  top: calc(50% - 12.5px);
+  left: calc(50% - 12.5px);
+  transform: translate(-50%, -50%); /* This centers the loader */
+  animation: loader-6 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+}
+
+
+@keyframes loader-6 {
+  0%, 100% {
+    transform: translate(-50%, -50%);
+  }
+  
+  25% {
+    transform: translate(calc(-50% + 25px), -50%);
+  }
+  
+  50% {
+    transform: translate(calc(-50% + 25px), calc(-50% + 25px));
+  }
+  
+  75% {
+    transform: translate(-50%, calc(-50% + 25px));
+  }
 }
 
 a {
@@ -74,7 +145,6 @@ a {
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-top: 64px;
   margin-bottom: 64px;
   height: fit-content;
   box-shadow: 6px 10px 8px #888888;
@@ -113,15 +183,11 @@ h2{
 }
 
 .calendar-card {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  width: 100%;
-  height: 100%;
+  width: calc(100% / 7);
   background-color: var(--background);
   color: var(--text-color);
   font-family: 'gabarito', sans-serif;
   border-right: var(--accent) 1px solid;
-  gap: 16px;
   text-align: center;
 }
 
@@ -150,4 +216,31 @@ meeting-details{
 .login-modal{
   width: 50%;
   border-radius: 16px;
+}
+
+@media (max-width: 1273px) AND (min-width: 0px) {
+  .calendar-wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+  .calendar-card{
+    width:100%;
+  }
+  .meeting-Wrapper{
+    justify-self: center;
+    justify-items: center;
+  }
+}
+
+nav-bar{
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 10;
+}
+
+@media screen and (max-width: 400px){
+  :root{
+    --h2-font: 1.777em;
+  }
 }

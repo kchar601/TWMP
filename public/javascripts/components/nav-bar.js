@@ -74,6 +74,7 @@ navBar.innerHTML = /*html*/`
         background-color: var(--accent-hover);
         animation: moving 5s infinite;
         -webkit-animation: moving .5s ease-in-out infinite alternate;
+        cursor: pointer;
     }
 
     .donate{

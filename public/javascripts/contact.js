@@ -38,6 +38,9 @@ async function sendMsg(data){
     if(result.status == "success"){
         hideLoader();
         alert("Message sent successfully");
+        document.querySelector('#nameInput').value = '';
+        document.querySelector('#emailInput').value = '';
+        document.querySelector('#msgInput').value = '';
     }
     else{
         hideLoader();
@@ -46,6 +49,7 @@ async function sendMsg(data){
 }
 
 async function addEmail(){
+    const email = document.querySelector('#emailInput').value;
     const body = {email: email};
     const response = await fetch('/api/addEmail', {
         method: 'POST',

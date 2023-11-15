@@ -13,10 +13,271 @@
 
 </head>
 <body>
-    <span class="target"></span>
+    <span class="ann-target"></span>
     <nav-bar></nav-bar>
-    Some sample content
+    <div class="hero">
+        <div class="hero-block">
+            <h1>Empowering Recovery Through Community Support and Connection</h1>
+            <p>Welcome to The Warrenton Meeting Place, a dedicated community organization committed to supporting the local 12-Step Community. Our mission is to provide a safe and welcoming space for recovery meetings and activities.</p>
+            <div>
+            <h4>Want to support our mission?</h4>
+            <a href="/donate.html" class="CTA">Donate Now</a>
+            </div>
+        </div>
+        <img src="./images/TWMP Pictures/landscape-sea-nature-outdoor-rock-walking-552835-pxhere.com.jpg">
+    </div>
+    <div class="inform">
+        <h3 class="section-header">Navigate Your Recovery Journey at The Warrenton Meeting Place</h3>
+        <div class="content-grid">
+            <span>
+                <h4>Discover TWMP</h4>
+                <p>Embark on the path to personal growth and healing with The Warrenton Meeting Place, your trusted guide in the local 12-Step Community. Our doors are open to all seeking solace and strength through our regular meetings and supportive environment. Stay informed with the latest schedules and updates, and find the support you need whenever you need it.</p>
+                <a href="/about.html" class="CTA btn-small">
+                    <span>About Us</span> 
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><style>svg{fill:#ffffff;}</style><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+                </a>
+            </span>
+            <span>
+                <h4>Updates at Your Fingertips</h4>
+                <p>Life can be unpredictable, but we strive to keep you informed of any changes or updates regarding our facilities. Whether it's a change in meeting times, special events, or weather-related closures, our aim is to communicate promptly and clearly, keeping your recovery journey on track.</p>
+                <button class="CTA btn-small">Meetings 
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><style>svg{fill:#ffffff}</style><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+                </button>
+            </span>
+            <span>
+                <h4>Your Compass for Clarity</h4>
+                <p>While we may not have the avenues for immediate responses, your inquiries are important to us. For guidance on meeting details or facility information, our FAQ page is a ready resource. And when you're looking for answers not found there, our contact form is your direct line to us. We're committed to reviewing your messages and providing responses with care and attention.</p>
+                <div class="btn-wrapper">
+                    <button class="CTA btn-small">FAQ
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><style>svg{fill:#ffffff}</style><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+                    </button>
+                    <button class="CTA btn-small">Contact Us
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><style>svg{fill:#ffffff}</style><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+                    </button>
+                </div>
+            </span>
+        </div>
+    </div>
     <connect-bar></connect-bar>
     <foot-bar></foot-bar>
 </body>
+
+    <style>
+        .hero-block * h4{
+            font-size: var(--h5-font);
+            display: inline-block;
+            margin: 0;
+            justify-content: start;
+            font-weight: 400;
+            text-align: left;
+        }
+        .hero {
+            overflow-x: hidden;
+        }
+
+        .hero > img {
+            height: 88vh;
+        }
+
+        .hero-block{
+            position: absolute;
+            top: 25%;
+            left: 32px;
+            background-color: rgb(250, 252, 255, .8);
+            color: var(--text);
+            padding: 16px;
+            width: 45%;
+            text-wrap: wrap;
+            align-content: center;
+        }
+
+        .hero-block > h1{
+            font-size: var(--h2-font);
+            font-family: var(--head-font-type);
+            text-align: left;
+            width: 90%;
+            margin: 16px auto;
+        }
+
+        .hero-block > p{
+            font-size: var(--h5-font);
+            font-family: var(--body-font-type);
+            text-align: left;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .hero-block > div{
+            display: flex;
+            justify-content: center;
+            width: 90%;
+            margin: 16px auto 8px auto;
+            align-items: center;
+        }
+
+        .CTA{
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 4px;
+            align-items: center;
+            background-color:var(--accent);
+            border: none;
+            color: var(--background);
+            font-size: var(--h5-font);
+            font-family: 'gabarito', sans-serif;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .CTA:hover, .CTA:active, .CTA:focus{
+            background-color: var(--accent-hover);
+        }
+
+        .CTA > svg{
+            height: 1em;
+            width: 1em;
+            padding-bottom: 2px;
+        }
+
+        .hero-block * a {
+            margin-left: 32px;
+            margin-right: 32px;
+            height: fit-content;
+            width: fit-content;
+        }
+
+        .inform{
+            background-color: var(--background);
+            width: 100%;
+            padding: 64px 0 96px 0;
+        }
+
+        .section-header{
+            font-size: var(--h2-font);
+            font-family: var(--head-font-type);
+            text-align: center;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .inform > h3{
+            font-size: var(--h3-font);
+            font-family: var(--head-font-type);
+            text-align: center;
+            margin: 32px auto;
+        }
+
+        .content-grid{
+            display: grid;
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        .content-grid > span{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .content-grid > span:first-child > .CTA {
+            margin-top: 16px;
+        }
+
+        .content-grid > span:not(:first-child):not(:last-child) > .CTA {
+            margin-top: 32px;
+        }
+
+        .content-grid > span > h4{
+            font-size: var(--h4-font);
+            font-family: var(--head-font-type);
+            text-align: center;
+            margin: 16px auto;
+        }
+
+        .content-grid * button {
+            margin: 0px 8px;
+        }
+
+        .btn-small{
+            font-size: var(--body-font);
+        }
+
+        .btn-wrapper{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 1007px){
+            .hero-block{
+                width: 60%;
+            }
+        }
+        @media (max-width: 800px){
+            .hero-block{
+                width: 80%;
+                top: 20%;
+            }
+        }
+        @media (max-width: 566px){
+            .hero-block{
+                width: 97%;
+                top: 15%;
+                left: 0;
+            }
+            .inform{
+                padding-top: 16px;
+            }
+        }
+        @media (max-width: 450px){
+            .hero-block > h1{
+                font-size: var(--h3-font);
+            }
+            .hero-block{
+                position: relative;
+                margin: auto;
+            }
+            .hero > img{
+                height: 23vh;
+            }
+            .hero-block * a {
+                margin: 0;
+                width: 148px;
+            }
+        }
+        @media (min-width: 951px){
+            .content-grid{
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .content-grid > span{
+                padding: 0px 32px;
+            }
+
+            .content-grid > span:not(:last-child){
+            border-right: 1px solid var(--accent);
+            }
+
+            .content-grid > span:first-child{
+                padding: 0 64px 0 0;
+            }
+
+            .content-grid > span:last-child{
+                padding: 0 0 0 64px;
+                border-right: none;
+            }
+        }
+
+        @media (max-width: 950px){
+            .content-grid{
+                grid-template-rows: 1fr 1fr 1fr;
+            }
+        }
+    </style>
+    <script>
+
+    </script>
 </html>

@@ -94,17 +94,23 @@ async function setAnnouncements() {
 }
 
 async function getAnnouncements() {
-    const response = await fetch('/api/getAnnouncements');
+    const body = { page: window.location.pathname };
+    const response = await fetch('/api/getAnnouncements', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body),
+    });
     const data = await response.json();
-    console.log(data[0]);
     if (data[0].closed === false || data[0].closed === undefined){
-        document.querySelector('.target').innerHTML = `<ann-bar closed="false"></ann-bar>`;
+        document.querySelector('.ann-target').innerHTML = `<ann-bar closed="false"></ann-bar>`;
         document.querySelector('ann-bar').textContent = data[0].message;
     }
 }
 
 customElements.define('ann-bar', AnnouncementsBar);
 
-window.onload = () => {
+window.addEventListener('DOMContentLoaded', () => {
     getAnnouncements();
-}
+})

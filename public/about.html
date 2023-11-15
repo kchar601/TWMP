@@ -231,7 +231,7 @@
 
         async function fetchApiKey() {
             try {
-                const response = await fetch('/maps-api-key'); // Replace with your server endpoint
+                const response = await fetch('/api/maps-api-key'); // Replace with your server endpoint
                 const data = await response.json();
                 return data.apiKey; // Make sure your server sends the key in an `apiKey` field
             } catch (error) {

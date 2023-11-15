@@ -99,6 +99,7 @@ footBar.innerHTML = /*html*/`
 
     button:hover, button:active, button:focus{
         background-color: var(--accent-hover);
+        cursor: pointer;
     }
 
     a {

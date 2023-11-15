@@ -49,5 +49,71 @@
     </div>
     <connect-bar></connect-bar>
     <foot-bar></foot-bar>
+
+    <style>
+        .calendar-wrapper{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        .first{
+            border-bottom-left-radius: 6px;
+        }
+
+        .last{
+            border-bottom-right-radius: 6px;
+            border-right: none;
+        }
+
+        .calendar-card {
+            width: calc(100% / 7);
+            background-color: var(--background);
+            color: var(--text-color);
+            font-family: 'gabarito', sans-serif;
+            border-right: var(--accent) 1px solid;
+            text-align: center;
+        }
+
+        .calendar-card > h2 {
+            padding: 8px 32px;
+            font-size: var(--h5-font);
+            font-family: var(--body-font-type);
+            text-shadow: none;
+            border-bottom: var(--accent) 1px solid;
+            grid-row: 1; /* Explicitly placing the h2 in the first row */
+        }
+        .meeting-Wrapper{
+            margin: 8px;
+            padding: 0px; 
+        }
+
+        meeting-details{
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 1273px) {
+            .calendar-wrapper{
+                display: flex;
+                flex-direction: column;
+            }
+            .calendar-card{
+                width:100%;
+            }
+            .meeting-Wrapper{
+                justify-self: center;
+                justify-items: center;
+            }
+
+            .first{
+                border-bottom-left-radius: 0px;
+            }
+
+            .last{
+                border-bottom-right-radius: 6px;
+                border-bottom-left-radius: 6px;
+            }
+        }
+    </style>
 </body>
 </html>

@@ -135,7 +135,6 @@ a {
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 0 20px;
   text-align: center;
   font-size: var(--h2-font);
   font-family: var(--head-font-type);
@@ -154,7 +153,7 @@ a {
   background-color: transparent;
 }
 
-h2{
+.hero > h2{
   text-shadow: 2px 2px 4px #888888;
 }
 
@@ -167,69 +166,8 @@ h2{
   width: 70%;
 }
 
-.calendar-wrapper{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-.first{
-  border-bottom-left-radius: 6px;
-}
-
-.last{
-  border-bottom-right-radius: 6px;
-  border-right: none;
-}
-
-.calendar-card {
-  width: calc(100% / 7);
-  background-color: var(--background);
-  color: var(--text-color);
-  font-family: 'gabarito', sans-serif;
-  border-right: var(--accent) 1px solid;
-  text-align: center;
-}
-
-.calendar-card > h2 {
-  padding: 8px 32px;
-  font-size: var(--h5-font);
-  font-family: var(--body-font-type);
-  text-shadow: none;
-  border-bottom: var(--accent) 1px solid;
-  grid-row: 1; /* Explicitly placing the h2 in the first row */
-}
-
 .border-thick{
   border: var(--accent) 2px solid;
-}
-
-.meeting-Wrapper{
-  margin: 8px;
-  padding: 0px; 
-}
-
-meeting-details{
-  margin-bottom: 16px;
-}
-
-.login-modal{
-  width: 50%;
-  border-radius: 16px;
-}
-
-@media (max-width: 1273px) AND (min-width: 0px) {
-  .calendar-wrapper{
-    display: flex;
-    flex-direction: column;
-  }
-  .calendar-card{
-    width:100%;
-  }
-  .meeting-Wrapper{
-    justify-self: center;
-    justify-items: center;
-  }
 }
 
 nav-bar{
@@ -243,4 +181,8 @@ nav-bar{
   :root{
     --h2-font: 1.777em;
   }
+}
+
+button{
+  cursor: pointer;
 }

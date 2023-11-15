@@ -8,6 +8,7 @@ const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 var cookie = require('cookie');
 const mime = require('mime');
+const nodemailer = require('nodemailer');
 const app = express()
 const port = 3000
 app.use(express.static('public', {
@@ -31,6 +32,16 @@ app.use(session({
   }
 }));
 
+const transporter = nodemailer.createTransport({
+  host: 'mail.smtp2go.com', // SMTP server
+  port: 2525, // or 8025, 587 and 25 can also be used.
+  secure: false, // true for 465, false for other ports
+  auth: {
+      user: process.env.SMTP_USER, // your SMTP2GO username
+      pass: process.env.SMTP_PASS  // your SMTP2GO password
+  }
+});
+
 const uri = process.env.MONGO_URI;
 
 app.listen(port, () => {
@@ -50,7 +61,6 @@ async function run() {
   try {
     await client.connect();
     await client.db("twmp").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
@@ -91,7 +101,7 @@ app.get('/api/getFAQ', (req, res) => {
   run().catch(console.dir);
 })
 
-app.get('/api/getAnnouncements', (req, res) => {
+app.post('/api/getAnnouncements', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const { MongoClient, ServerApiVersion } = require("mongodb");
   const uri = process.env.MONGO_URI;
@@ -103,6 +113,8 @@ app.get('/api/getAnnouncements', (req, res) => {
           }
       }
   );
+  const closed = req.session.closedAnnouncements;
+  const page = req.body.page;
   async function run() { 
   try{
     await client.connect();
@@ -110,8 +122,11 @@ app.get('/api/getAnnouncements', (req, res) => {
     await database.command({ ping: 1 });
     const announcements = database.collection("announcements");
     const items = await announcements.find({}).toArray();
-    if (req.session.closedAnnouncements) {
+    if (req.session.closedAnnouncements && page !== '/faq.html') {
       items[0].closed = true;
+    }
+    else{
+      items[0].closed = false;
     }
     res.json(items);
   }
@@ -159,7 +174,6 @@ app.post('/api/checkLogin', function(req, res){
       await client.connect();
       const dbo = client.db("twmp");
       await dbo.command({ ping: 1 });
-      console.log("Pinged your deployment. You successfully connected to MongoDB!");
       const result = await dbo.collection("users").findOne(user);
       if (result) {
         console.log("user found");
@@ -268,7 +282,29 @@ app.post('/api/filterMeetings', function(req, res){
       run().catch(console.dir);
   })
     
-  app.get('/maps-api-key', (req, res) => {
-    console.log('sending api key' + process.env.GOOGLE_MAPS_API_KEY);
+  app.get('/api/maps-api-key', (req, res) => {
     res.json({ apiKey: process.env.GOOGLE_MAPS_API_KEY });
   });
+
+app.post('/api/sendMsg', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    const email = req.body.email;
+    const name = req.body.name;
+    const message = req.body.message;
+    const html = `<p>Name: ${name}</p><p>Return email: ${email}</p><p>Message: ${message}</p>`;
+    const mailOptions = {
+      from: 'user@twmp.org', // sender address
+      to: 'charltonkeith8@gmail.com', // list of receivers
+      subject: 'Contact Form', // Subject line
+      html: html // HTML body content
+  };
+  
+  // Send email
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log('Message sent: %s', info.messageId);
+  });
+  res.json({status: "success"});
+});

@@ -139,6 +139,10 @@ footBar.innerHTML = /*html*/`
         justify-content: center;
     }
 
+    .hero{
+        padding: 8px;
+    }
+
     @media only screen and (max-width: 768px) {
         footer{
             margin: auto;
@@ -162,7 +166,7 @@ footBar.innerHTML = /*html*/`
     }
 </style>
 <div class="hero">
-    <a class="noHover logo" href='/index.html'><img src="../../images/twmpOGlogo.png"></a>
+    <a class="noHover logo" href='/index.html'><img src="../../images/twmplogo.png"></a>
     <h2 class="prevent-select">The Warrenton Meeting Place</h2>
 </div>
 <footer>

@@ -156,7 +156,7 @@ navBar.innerHTML = /*html*/`
     }
 </style>
 <nav>
-    <a href='/index.html' class="logo"><img src="../../images/twmpOGlogo.png"></a>
+    <a href='/index.html' class="logo"><img src="../../images/twmplogo.png"></a>
     <ul class="hidden">
         <a class="mainNav" href='/index.html'><li>Home</li></a>
         <a class="mainNav" href='/meetings.html'><li>Meetings</li></a>

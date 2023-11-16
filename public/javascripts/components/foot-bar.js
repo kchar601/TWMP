@@ -162,7 +162,7 @@ footBar.innerHTML = /*html*/`
     }
 </style>
 <div class="hero">
-    <a class="noHover logo" href='/index.html'><img src="../../images/twmplogo.png"></a>
+    <a class="noHover logo" href='/index.html'><img src="../../images/twmpOGlogo.png"></a>
     <h2 class="prevent-select">The Warrenton Meeting Place</h2>
 </div>
 <footer>

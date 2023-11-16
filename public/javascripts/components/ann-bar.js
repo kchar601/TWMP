@@ -21,10 +21,10 @@ annBar.innerHTML = /*html*/`
     cursor: pointer;
     align-self: flex-end;
     background-color: var(--secondary-hover);
-    margin: auto 16px;
+    margin-right: 8px;
     position: relative;
     width: 32px;
-    height: 32px;
+    aspect-ratio: 1;
   }
 
   svg{

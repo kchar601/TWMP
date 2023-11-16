@@ -31,6 +31,7 @@ footBar.innerHTML = /*html*/`
         width: 64px;
         aspect-ratio: 1;
         margin: 8px;
+        padding-left: 8px;
     }
 
     h2{

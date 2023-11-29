@@ -21,7 +21,7 @@ annBar.innerHTML = /*html*/`
     cursor: pointer;
     align-self: flex-end;
     background-color: var(--secondary-hover);
-    margin-right: 8px;
+    margin: auto 8px auto 0px;
     position: relative;
     width: 32px;
     aspect-ratio: 1;

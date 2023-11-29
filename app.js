@@ -33,12 +33,12 @@ app.use(session({
 }));
 
 const transporter = nodemailer.createTransport({
-  host: 'mail.smtp2go.com', // SMTP server
-  port: 2525, // or 8025, 587 and 25 can also be used.
-  secure: false, // true for 465, false for other ports
+  host: 'mail.smtp2go.com',
+  port: 2525,
+  secure: false,
   auth: {
-      user: process.env.SMTP_USER, // your SMTP2GO username
-      pass: process.env.SMTP_PASS  // your SMTP2GO password
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
   }
 });
 
@@ -105,40 +105,87 @@ app.post('/api/getAnnouncements', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const { MongoClient, ServerApiVersion } = require("mongodb");
   const uri = process.env.MONGO_URI;
-  const client = new MongoClient(uri,  {
-          serverApi: {
-              version: ServerApiVersion.v1,
-              strict: true,
-              deprecationErrors: true,
-          }
-      }
-  );
-  const closed = req.session.closedAnnouncements;
-  const page = req.body.page;
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
+
+  const currentDate = new Date(); // Current date
+
+  console.log(currentDate);
+
   async function run() { 
-  try{
-    await client.connect();
-    const database = client.db("twmp");
-    await database.command({ ping: 1 });
-    const announcements = database.collection("announcements");
-    const items = await announcements.find({}).toArray();
-    if (req.session.closedAnnouncements && page !== '/faq.html') {
-      items[0].closed = true;
+    try {
+      await client.connect();
+      const database = client.db("twmp");
+      await database.command({ ping: 1 });
+      const announcements = database.collection("announcements");
+
+      const items = await announcements.aggregate([
+        {
+          $match: {
+            startDate: { $lte: currentDate },
+            endDate: { $gte: currentDate }
+          }
+        }
+      ]).toArray();
+
+      if (items.length > 0){
+        if (req.session.closedAnnouncements && req.body.page !== '/faq.html') {
+          items[0].closed = true;
+        }
+        else {
+          items[0].closed = false;
+        }
+      }
+
+      res.json(items);
     }
-    else{
-      items[0].closed = false;
+    catch(err) {
+      console.log(err);
     }
-    res.json(items);
+    finally {
+      await client.close();
+    }
   }
-  catch(err){
-    console.log(err);
-  }
-  finally{
-    await client.close();
-  }
-}
   run().catch(console.dir);
-})
+});
+
+app.get('/api/getAllAnnouncements', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
+
+  async function run() { 
+    try {
+      await client.connect();
+      const database = client.db("twmp");
+      await database.command({ ping: 1 });
+      const announcements = database.collection("announcements");
+
+      const items = await announcements.find().toArray();
+
+      res.json(items);
+    }
+    catch(err) {
+      console.log(err);
+    }
+    finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+});
 
 app.get('/api/closedAnnouncements', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -199,10 +246,12 @@ app.post('/api/checkLogin', function(req, res){
 
 app.get('/api/permissions', function(req, res){
   res.setHeader('Content-Type', 'application/json');
-  if (req.session.isAuthenticated) {
-    res.json({ isAuthenticated: true, role: req.session.role });
+  console.log(req.session.isAuthenticated);
+  console.log(req.session.role);
+  if (req.session.isAuthenticated && req.session.role === 'admin') {
+    res.json([true]);
   } else {
-    res.json({ isAuthenticated: false });
+    res.json([false]);
   }
 });
 
@@ -308,3 +357,52 @@ app.post('/api/sendMsg', (req, res) => {
   });
   res.json({status: "success"});
 });
+
+app.get('/api/checkSession', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  if (req.session.isAuthenticated) {
+    res.json([true]);
+  } else {
+    res.json([false]);
+  }
+});
+
+app.post('/api/updateAnnouncement', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  console.log(req.body);
+  let startDate = new Date(req.body.startDate);
+  let endDate = new Date(req.body.endDate);  
+  async function run() {
+    try {
+      await client.connect();
+      const dbo = client.db("twmp");
+      await dbo.command({ ping: 1 });
+      const result = await dbo.collection("announcements").findOne({ _id: new ObjectId(req.body._id) });
+      console.log(result);
+      if (result) {
+        console.log("announcement found");
+        await dbo.collection("announcements").updateOne({ _id: new ObjectId(req.body._id) }, {$set: {name: req.body.name, startDate: startDate, endDate: endDate, message: req.body.message}});
+        res.json({success: true});
+      } else {
+        console.log("announcement not found");
+        res.json({success: false});
+      };
+    } catch (err) {
+      console.error(err);
+    } finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+}
+)

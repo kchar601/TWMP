@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        async function checkSession(){
+            const response = await fetch('/api/checkSession', {
+                method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+            const data = await response.json();
+            console.log(data);
+            if(data[0]){
+                window.location = "dashboard.html";
+                return true;
+            }
+            else{
+                return false;
+                };
+        }
+        
+        checkSession();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Warrenton Meeeting Place</title>
@@ -25,6 +46,16 @@
             width: 50%;
             border-radius: 16px;
         }
+        @media screen and (max-width: 768px){
+            .fixed-width{
+                max-width: 100%;
+            }
+            .login-modal{
+                width: 90%;
+            }
+        }
+
+
     </style>
 </body>
 </html>

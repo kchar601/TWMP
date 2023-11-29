@@ -37,8 +37,10 @@
               "content": "link this to dashboard to have content changable",
               "id": 1697448724006,
               "level": "default",
-              "done": false,
-              "start": 1697448724006
+              "done": true,
+              "start": 1697448724006,
+              "focus": false,
+              "end": 1700448664137
             }
           },
           {
@@ -98,8 +100,10 @@
               "content": "Create email contact form using nodemailer (sendInBlue or some other service)",
               "id": 1697448787596,
               "level": "default",
-              "done": false,
-              "start": 1697448787596
+              "done": true,
+              "start": 1697448787596,
+              "focus": false,
+              "end": 1700095211671
             }
           },
           {
@@ -109,8 +113,10 @@
               "content": "have hero bar showing local address",
               "id": 1697448807046,
               "level": "default",
-              "done": false,
-              "start": 1697448807046
+              "done": true,
+              "start": 1697448807046,
+              "focus": false,
+              "end": 1700095212944
             }
           },
           {
@@ -120,8 +126,10 @@
               "content": "include email address itself somewhere on the page",
               "id": 1697448825072,
               "level": "default",
-              "done": false,
-              "start": 1697448825072
+              "done": true,
+              "start": 1697448825072,
+              "focus": false,
+              "end": 1700448645345
             }
           }
         ],
@@ -129,8 +137,10 @@
           "content": "Contact",
           "id": 1697448753095,
           "level": "warning",
-          "done": false,
-          "start": 1697448753095
+          "done": true,
+          "start": 1697448753095,
+          "focus": false,
+          "end": 1700448645942
         }
       },
       {
@@ -196,8 +206,10 @@
               "content": "Just needs to have questions / answers populated",
               "id": 1697448935876,
               "level": "default",
-              "done": false,
-              "start": 1697448935876
+              "done": true,
+              "start": 1697448935876,
+              "focus": false,
+              "end": 1700448949635
             }
           },
           {
@@ -207,8 +219,10 @@
               "content": "Add past announcements section (?)",
               "id": 1697449138119,
               "level": "default",
-              "done": false,
-              "start": 1697449138119
+              "done": true,
+              "start": 1697449138119,
+              "focus": false,
+              "end": 1700448636230
             }
           }
         ],
@@ -216,8 +230,10 @@
           "content": "FAQ",
           "id": 1697448928880,
           "level": "warning",
-          "done": false,
-          "start": 1697448928880
+          "done": true,
+          "start": 1697448928880,
+          "focus": false,
+          "end": 1700448950321
         }
       },
       {
@@ -230,8 +246,10 @@
               "content": "Modal needs to include media queries to resize for smaller screens",
               "id": 1697449572188,
               "level": "default",
-              "done": false,
-              "start": 1697449572188
+              "done": true,
+              "start": 1697449572188,
+              "focus": false,
+              "end": 1700440870188
             }
           }
         ],
@@ -239,10 +257,10 @@
           "content": "Login",
           "id": 1697448961602,
           "level": "warning",
-          "done": false,
+          "done": true,
           "start": 1697448961602,
           "focus": false,
-          "end": 1697448967953
+          "end": 1700440871347
         }
       },
       {
@@ -345,8 +363,10 @@
               "content": "FIX: change to check for data date and if current date is after expiry then don't show",
               "id": 1697449084462,
               "level": "default",
-              "done": false,
-              "start": 1697449084462
+              "done": true,
+              "start": 1697449084462,
+              "focus": false,
+              "end": 1700448594966
             }
           }
         ],
@@ -354,8 +374,10 @@
           "content": "Announcements Bar",
           "id": 1697449058649,
           "level": "warning",
-          "done": false,
-          "start": 1697449058649
+          "done": true,
+          "start": 1697449058649,
+          "focus": false,
+          "end": 1700448595433
         }
       },
       {
@@ -368,8 +390,10 @@
               "content": "Create design once we receive pictures to use",
               "id": 1697449354371,
               "level": "default",
-              "done": false,
-              "start": 1697449354371
+              "done": true,
+              "start": 1697449354371,
+              "focus": false,
+              "end": 1700096434308
             }
           },
           {
@@ -379,8 +403,10 @@
               "content": "Refactor text from old home screen / fabricate new to fill out the page",
               "id": 1697449367615,
               "level": "default",
-              "done": false,
-              "start": 1697449367615
+              "done": true,
+              "start": 1697449367615,
+              "focus": false,
+              "end": 1700096437690
             }
           },
           {
@@ -390,8 +416,10 @@
               "content": "get old logo to use or refactor as TWMP text",
               "id": 1698902259107,
               "level": "default",
-              "done": false,
-              "start": 1698902259107
+              "done": true,
+              "start": 1698902259107,
+              "focus": false,
+              "end": 1700096443870
             }
           }
         ],
@@ -399,8 +427,10 @@
           "content": "Home page",
           "id": 1697449313119,
           "level": "warning",
-          "done": false,
-          "start": 1697449313119
+          "done": true,
+          "start": 1697449313119,
+          "focus": false,
+          "end": 1700096445848
         }
       },
       {
@@ -443,13 +473,8 @@
       1697448935876,
       1697448645291,
       1698902088937,
-      1697448753095,
-      1697449313119,
       1698902078048,
-      1697449058649,
-      1697448970613,
-      1697448928880,
-      1697448961602
+      1697448970613
     ],
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
@@ -461,6 +486,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1699904765605"
+    "version": "1700448951696"
   }
 }

@@ -54,7 +54,6 @@ footBar.innerHTML = /*html*/`
         display: flex;
         height: fit-content;
         align-items: center;
-        width: 100%;
     }
 
     .runOff{
@@ -87,6 +86,7 @@ footBar.innerHTML = /*html*/`
         background-color: var(--background-hover);
         font-size: var(--body-font);
         font-family: var(--body-font-type);
+        width: 60%;
     }
 
     button{
@@ -160,10 +160,21 @@ footBar.innerHTML = /*html*/`
         }
     }
 
+    @media (max-width: 720px) {
+        .img{
+            margin: 0;
+            padding-left: 0;
+        }
+    }
+
     @media only screen and (max-width: 486px) {
         .logo {
             padding-top:16px;
         }
+    }
+
+    .p-1{
+        padding-right: 64px;
     }
 </style>
 <div class="hero">
@@ -183,7 +194,7 @@ footBar.innerHTML = /*html*/`
         </ul>
     </div>
     <div>
-        <h3 class="prevent-select">Admin</h3>
+        <h3 class="prevent-select">Admin<span class="p-1"></span></h3>
         <ul>
             <a href="/login.html"><li>Login</li></a>
             <a href="/dashboard.html"><li>Dashboard</li></a>

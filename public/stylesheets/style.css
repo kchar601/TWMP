@@ -160,6 +160,7 @@ a {
 .fixed-width{
   width: 100%;
   max-width: 60%;
+  margin-top: 64px;
 }
 
 .width-70{
@@ -185,4 +186,5 @@ nav-bar{
 
 button{
   cursor: pointer;
+  transition: 0.3s;
 }

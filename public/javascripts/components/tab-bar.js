@@ -20,6 +20,7 @@ tabBarTemplate.innerHTML = /*html*/`
             padding: 12px 16px;
             border: none;
             background-color: var(--background);
+            color: var(--text);
         }
 
         .tab:hover{

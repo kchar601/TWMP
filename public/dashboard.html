@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        async function checkSession(){
+            const response = await fetch('/api/checkSession', {
+                method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+            const data = await response.json();
+            console.log(data);
+            if(!data[0]){
+                window.location = "login.html";
+                return false;
+                };
+        }
+        
+        checkSession();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Warrenton Meeeting Place</title>
     <link rel="stylesheet" href="stylesheets/style.css">
+    <script defer src="javascripts/load-animation.js"></script>
     <script defer src="javascripts/components/nav-bar.js"></script>
     <script defer src="javascripts/components/foot-bar.js"></script>
     <script defer src="javascripts/components/connect-bar.js"></script>
@@ -15,6 +34,193 @@
     <ann-bar></ann-bar>
     <nav-bar></nav-bar>
 
+    <div class="content-wrapper">
+        <i class="loader --6"></i>
+        <div class="tab-wrapper">
+            <button id='announcementTab' onclick="changeTab('announcement')" class="tab active">Announcements</button>
+            <button id='meetingsTab' onclick="changeTab('meetings')" class="tab">Meetings</button>
+            <button id='faqsTab' onclick="changeTab('faqs')" class="tab">FAQs</button>
+        </div>
+        <div class="content">
+            <div class="announcement">
+                <div>
+                    <label for="announcementSelect">Select Announcement to Edit:</label>
+                    <div id="announcementSelect" name="Announcements"></div>
+                    <script>
+                        async function getAnnouncements(){
+                            const response = await fetch('/api/getAllAnnouncements', {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+                            const data = await response.json();
+                            return data;
+                        }
+
+                        async function populateAnnouncements(){
+                            document.getElementById('announcementSelect').innerHTML = '';
+                            let data =  await getAnnouncements();
+                            if(!data[0]){
+                                return false;
+                                };
+                            let select = document.getElementById('announcementSelect');
+                            for(let i = 0; i < data.length; i++){
+                                let option = document.createElement('button');
+                                option.innerText = data[i].name;
+                                option.value = data[i]._id;
+                                option.onclick = function(){
+                                    changeAnnouncement(data[i]._id);
+                                }
+                                select.appendChild(option);
+                            }
+                        }
+
+                        var activeAnnouncementID = null;
+
+                        async function changeAnnouncement(announcementID){
+                            //used to populate the announcement fields with the selected announcement
+                            showLoader();
+                            let buttons = document.getElementById('announcementSelect').children;
+                            for(let i = 0; i < buttons.length; i++){
+                                buttons[i].classList.remove('active');
+                            }
+
+                            let buttonToActivate = document.querySelector('#announcementSelect button[value="' + announcementID + '"]');
+                            if (buttonToActivate) {
+                                buttonToActivate.classList.add('active');
+                                activeAnnouncementID = announcementID;
+                            } else {
+                                console.error('Button with announcementID ' + announcementID + ' not found');
+                            }
+                            let data = await getAnnouncements();
+                            data.forEach(announcement => {
+                                if(announcement._id === announcementID){
+                                    let name = document.getElementById('ann-name');
+                                    name.value = announcement.name;
+                                    let msg = document.getElementById('ann-msg');
+                                    msg.value = announcement.message;
+                                    let start = document.getElementById('ann-start');
+                                    start.value = formatMongoDateToHtmlDate(announcement.startDate);
+                                    let end = document.getElementById('ann-end');
+                                    end.value = formatMongoDateToHtmlDate(announcement.endDate);
+                                }
+                            });
+                            hideLoader();                            
+                        }
+                    </script>
+                </div>
+                <div>
+                    <label for="ann-name">Announcement Name <span class="smallText">(For admin purposes only)</span></label>
+                    <input type="text" id="ann-name"></input>
+
+                    <label for="ann-msg">Announcement Message</label>
+                    <input id="ann-msg"></input>
+
+                    <label for="ann-start">Announcement Start Date</label>
+                    <input type="date" id="ann-start"></input>
+
+                    <label for="ann-end">Announcement End Date</label>
+                    <input type="date" id="ann-end"></input>
+
+                    <span class="actions">
+                        <button id="ann-submit" class="CTA green" onclick="sendUpdate()">Update 
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><style>svg{fill:#000000}</style><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                        </button>
+                        <button id="ann-cancel" class="CTA yellow" onclick="resetAnnouncement()">Cancel
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><style>svg{fill:#000000}</style><path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>
+                        </button>
+                        <button id="ann-delete" class="CTA red" onclick="sendDelete()">Delete
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><style>svg{fill:#000000}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                        </button>
+                    </span>
+                </div>
+            
+                <script>
+                    async function sendUpdate(){
+                        showLoader();
+                        let name = document.getElementById('ann-name').value;
+                        let msg = document.getElementById('ann-msg').value;
+                        let start = document.getElementById('ann-start').value;
+                        let end = document.getElementById('ann-end').value;
+                        let id = activeAnnouncementID;
+                        let data = {
+                            name: name,
+                            message: msg,
+                            startDate: convertLocalToUtc(start),
+                            endDate: convertLocalToUtc(end),
+                            _id: id
+                        }
+                        const response = await fetch('/api/updateAnnouncement', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        const res = await response.json();
+                        if(res.success){
+                            alert('Announcement Updated');
+                            await populateAnnouncements();
+                            await changeAnnouncement(id);
+                        } else {
+                            alert('Announcement Update Failed');
+                        }
+                        hideLoader();
+                    }
+
+                    async function sendDelete(){
+                        showLoader();
+                        let id = activeAnnouncementID;
+                        let data = {
+                            _id: id
+                        }
+                        const response = await fetch('/api/deleteAnnouncement', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        const res = await response.json();
+                        if(res.success){
+                            alert('Announcement Deleted');
+                            await populateAnnouncements();
+                            await changeAnnouncement(id);
+                        } else {
+                            alert('Announcement Delete Failed');
+                        }
+                        hideLoader();
+                    }
+
+                    function resetAnnouncement(){
+                        let name = document.getElementById('ann-name');
+                        name.value = '';
+                        let msg = document.getElementById('ann-msg');
+                        msg.value = '';
+                        let start = document.getElementById('ann-start');
+                        start.value = '';
+                        let end = document.getElementById('ann-end');
+                        end.value = '';
+                    }
+
+                </script>
+
+            </div>
+
+            <div class="meetings">
+
+                Some meeting content
+
+            </div>
+
+            <div class="faqs">
+
+                Some faq content
+
+            </div>
+        </div>
+    </div>
     <!--
     //TODO: create ability to add / delete announcements and set end dates
 
@@ -27,31 +233,193 @@
 
     <foot-bar></foot-bar>
 
+
     <script>
-        window.addEventListener("load", (event) => {
-            checkPermissions();
-        });
-
-        async function checkPermissions(){
-            let response = await fetch('/api/permissions', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            let data = await response.json();
-
-            if(data.isAuthenticated){
-                console.log('logged in');
-                console.log(data.role);
-                // let admin = document.createElement('admin-bar');
-                // document.body.appendChild(admin);
+        function changeTab(id){
+            showLoader();
+            // Remove 'active' class from all tabs
+            let tabs = document.querySelectorAll('.tab');
+            for(let i = 0; i < tabs.length; i++){
+                tabs[i].classList.remove('active');
             }
-            else{
-                console.log('not logged in');
+            // Add 'active' class to the selected tab
+            document.getElementById(id + 'Tab').classList.add('active');
+            
+            // Hide all tab content divs
+            let contentDivs = document.querySelector('.content').children;
+            for(let i = 0; i < contentDivs.length; i++){
+                contentDivs[i].style.display = 'none';
+                contentDivs[i].classList.remove('active-content');
             }
+            // Add 'active-content' class and display the selected tab content div
+            let activeDiv = document.querySelector('.' + id);
+            activeDiv.classList.add('active-content');
+            activeDiv.style.display = 'grid'
+
+            hideLoader();
+        }
+
+        window.onload = async function() {
+            showLoader();
+            await populateAnnouncements();
+            await changeTab('announcement'); // Set the default tab here
+            hideLoader();
         };
+
+        function formatMongoDateToHtmlDate(mongoDate) {
+            const date = new Date(mongoDate);
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function convertLocalToUtc(dateString) {
+            // Create a Date object assuming dateString is in local time
+            const localDate = new Date(dateString + 'T00:00:00');
+            // Convert to UTC and format as ISO string
+            return localDate.toISOString();
+        }
     </script>
+
+    <style>
+        .announcement, .meetings, .faqs {
+            display: none;
+        }
+
+        .active-content{
+            display: grid;
+            grid-template-columns: .6fr 1.4fr;
+            grid-gap: 64px;
+            width: 90%;
+            padding-bottom: 32px;
+            margin: auto;
+        }
+
+        .tab-wrapper{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            margin-bottom: 32px;
+        }
+        .tab{
+            background-color: var(--background);
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 16px 32px;
+            border-radius: 6px 6px 0 0;
+            font-family: var(--head-font-type);
+            font-size: var(--button-font);
+        }
+        .tab:hover, .tab:focus, .tab:active{
+            background-color: var(--background-hover);
+        }
+        .tab.active{
+            color: var(--background);
+            background-color: var(--accent);
+        }
+        .active:hover, .active:focus, .active:active{
+            background-color: var(--accent-hover);
+        }
+
+        .content-wrapper{
+            margin-top: 64px;
+        }
+
+        label{
+            display:flex;
+            font-family: var(--body-font-type);
+            font-size: var(--button-font);
+        }
+
+        #announcementSelect{
+            display: flex;
+            flex-direction: column;
+            height: 200px;
+            background-color: white;
+            border: 1px solid var(--accent);
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        
+        #announcementSelect button{
+            display: flex;
+            border-radius: 0;
+            border: none;
+            border-bottom: 1px solid var(--accent);
+            border-right: 1px solid var(--accent);
+            font-size: var(--body-font);
+            font-family: var(--body-font-type);
+            padding: 4px;
+        }
+
+        #announcementSelect button:hover, #announcementSelect button:focus, #announcementSelect button:active{
+            background-color: var(--background-hover);
+        }
+
+        #announcementSelect button.active{
+            background-color: var(--accent);
+            color: var(--background);
+        }
+
+        #announcementSelect button.active:hover, #announcementSelect button.active:focus, #announcementSelect button.active:active{
+            background-color: var(--accent-hover);
+        }
+
+        .smallText{
+            font-size: var(--small-font);
+            align-self: center;
+            padding-left: 8px;
+        }
+
+        input{
+            display: flex;
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            font-family: var(--body-font-type);
+            font-size: var(--body-font);
+        }
+
+        .CTA{
+            align-items: center;
+            border: none;
+            font-size: var(--h5-font);
+            font-family: 'gabarito', sans-serif;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .green{
+            background-color: lightgreen;
+        }
+        .green:hover{
+            background-color: rgb(69, 211, 69);
+        }
+
+        .red{
+            background-color: lightcoral;
+        }
+        .red:hover{
+            background-color: rgb(230, 94, 94);
+        }
+
+        .yellow{
+            background-color: rgb(227, 227, 16);
+        }
+        .yellow:hover{
+            background-color: rgb(187, 187, 29);
+        }
+
+        .actions{
+            display: flex;
+            width: 83%;
+            justify-content: space-between;
+            max-width: 100%;
+        }
+    </style>
 </body>
 </html>

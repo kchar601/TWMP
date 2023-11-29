@@ -69,6 +69,12 @@ loginTemplate.innerHTML = /*html*/`
             margin: 8px 0px;
             font-size: var(--body-font);
         }
+
+        @media only screen and (max-width: 768px) {
+            .form {
+                max-width: 80%;
+            }
+        }
     </style>
 <div class="container">
         <h2 class="main-heading">Sign in to TWMP</h2>
@@ -138,7 +144,7 @@ async function checkUser(send){
     const data = await response.json();
     console.log(data);
     if(data[0]){
-        window.location = "index.html";
+        window.location = "dashboard.html";
         return true;
     }
     else{
@@ -147,5 +153,3 @@ async function checkUser(send){
         return false;
         };
 }
-
-//TODO: redirect if already logged in

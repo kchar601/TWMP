@@ -43,17 +43,12 @@
         </div>
         <div class="content">
             <div class="announcement">
-                <div>
+                <div class="column">
                     <label for="announcementSelect">Select Announcement to Edit:</label>
-                    <div id="announcementSelect" name="Announcements"></div>
+                    <div id="announcementSelect" name="Announcements" class="selectContainer"></div>
                     <script>
                         async function getAnnouncements(){
-                            const response = await fetch('/api/getAllAnnouncements', {
-                                    method: 'GET',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    }
-                                });
+                            const response = await fetch('/api/getAllAnnouncements');
                             const data = await response.json();
                             return data;
                         }
@@ -69,6 +64,10 @@
                                 let option = document.createElement('button');
                                 option.innerText = data[i].name;
                                 option.value = data[i]._id;
+                                option.dataset.name = data[i].name;
+                                option.dataset.message = data[i].message;
+                                option.dataset.startDate = data[i].startDate;
+                                option.dataset.endDate = data[i].endDate;
                                 option.onclick = function(){
                                     changeAnnouncement(data[i]._id);
                                 }
@@ -93,22 +92,17 @@
                             } else {
                                 console.error('Button with announcementID ' + announcementID + ' not found');
                             }
-                            let data = await getAnnouncements();
-                            data.forEach(announcement => {
-                                if(announcement._id === announcementID){
-                                    let name = document.getElementById('ann-name');
-                                    name.value = announcement.name;
-                                    let msg = document.getElementById('ann-msg');
-                                    msg.value = announcement.message;
-                                    let start = document.getElementById('ann-start');
-                                    start.value = formatMongoDateToHtmlDate(announcement.startDate);
-                                    let end = document.getElementById('ann-end');
-                                    end.value = formatMongoDateToHtmlDate(announcement.endDate);
-                                }
-                            });
+                            document.getElementById('ann-name').value = buttonToActivate.dataset.name;
+                            document.getElementById('ann-msg').value = buttonToActivate.dataset.message;
+                            document.getElementById('ann-start').value = formatMongoDateToHtmlDate(buttonToActivate.dataset.startDate);
+                            document.getElementById('ann-end').value = formatMongoDateToHtmlDate(buttonToActivate.dataset.endDate);
                             hideLoader();                            
                         }
                     </script>
+                    <button id="ann-add" class="CTA info" onclick="addAnn()">Add new
+                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                    </button>
+
                 </div>
                 <div>
                     <label for="ann-name">Announcement Name <span class="smallText">(For admin purposes only)</span></label>
@@ -124,20 +118,34 @@
                     <input type="date" id="ann-end"></input>
 
                     <span class="actions">
-                        <button id="ann-submit" class="CTA green" onclick="sendUpdate()">Update 
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><style>svg{fill:#000000}</style><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                        <button id="ann-submit" class="CTA green" onclick="sendAnnUpdate()">Update 
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                         </button>
                         <button id="ann-cancel" class="CTA yellow" onclick="resetAnnouncement()">Cancel
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><style>svg{fill:#000000}</style><path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>
                         </button>
-                        <button id="ann-delete" class="CTA red" onclick="sendDelete()">Delete
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><style>svg{fill:#000000}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                        <button id="ann-delete" class="CTA red" onclick="sendAnnDelete()">Delete
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
                         </button>
                     </span>
                 </div>
             
                 <script>
-                    async function sendUpdate(){
+                    async function addAnn(){
+                        showLoader();
+                        const response = await fetch('/api/addAnnouncement');
+                        const res = await response.json();
+                        console.log(res);
+                        if(res.success){
+                            await populateAnnouncements();
+                            await changeAnnouncement(res._id);
+                        } else {
+                            alert('Announcement Add Failed');
+                        }
+                        hideLoader();
+                    }
+
+                    async function sendAnnUpdate(){
                         showLoader();
                         let name = document.getElementById('ann-name').value;
                         let msg = document.getElementById('ann-msg').value;
@@ -160,7 +168,6 @@
                         });
                         const res = await response.json();
                         if(res.success){
-                            alert('Announcement Updated');
                             await populateAnnouncements();
                             await changeAnnouncement(id);
                         } else {
@@ -169,7 +176,7 @@
                         hideLoader();
                     }
 
-                    async function sendDelete(){
+                    async function sendAnnDelete(){
                         showLoader();
                         let id = activeAnnouncementID;
                         let data = {
@@ -184,24 +191,21 @@
                         });
                         const res = await response.json();
                         if(res.success){
-                            alert('Announcement Deleted');
                             await populateAnnouncements();
-                            await changeAnnouncement(id);
+                            document.getElementById('ann-name').value = '';
+                            document.getElementById('ann-msg').value = '';
+                            document.getElementById('ann-start').value = '';
+                            document.getElementById('ann-end').value = '';
                         } else {
                             alert('Announcement Delete Failed');
                         }
                         hideLoader();
                     }
 
-                    function resetAnnouncement(){
-                        let name = document.getElementById('ann-name');
-                        name.value = '';
-                        let msg = document.getElementById('ann-msg');
-                        msg.value = '';
-                        let start = document.getElementById('ann-start');
-                        start.value = '';
-                        let end = document.getElementById('ann-end');
-                        end.value = '';
+                    async function resetAnnouncement(){
+                        let id = activeAnnouncementID;
+                        await populateAnnouncements();
+                        await changeAnnouncement(id);
                     }
 
                 </script>
@@ -216,7 +220,167 @@
 
             <div class="faqs">
 
-                Some faq content
+                <div class="column">
+                    <label for="faqSelect">Select FAQ to Edit:</label>
+                    <div id="faqSelect" name="FAQs" class="selectContainer"></div>
+                    <script>
+                        async function getFAQs(){
+                            const response = await fetch('/api/getFAQ');
+                            const data = await response.json();
+                            return data;
+                        }
+
+                        async function populateFAQs(){
+                            document.getElementById('faqSelect').innerHTML = '';
+                            let data =  await getFAQs();
+                            if(!data[0]){
+                                return false;
+                                };
+                            let select = document.getElementById('faqSelect');
+                            document.getElementById('faq-order').setAttribute('max', data.length);
+                            for(let i = 0; i < data.length; i++){
+                                let option = document.createElement('button');
+                                option.innerText = data[i].question;
+                                option.value = data[i]._id;
+                                option.dataset.question = data[i].question;
+                                option.dataset.answer = data[i].answer;
+                                option.dataset.order = data[i].order;
+                                option.onclick = function(){
+                                    changeFAQ(data[i]._id);
+                                }
+                                select.appendChild(option);
+                                console.log(option);
+                            }
+                        }
+
+                        var activefaqID;
+
+                        async function changeFAQ(faqID){
+                            //used to populate the announcement fields with the selected announcement
+                            showLoader();
+                            let buttons = document.getElementById('faqSelect').children;
+                            for(let i = 0; i < buttons.length; i++){
+                                buttons[i].classList.remove('active');
+                            }
+
+                            let buttonToActivate = document.querySelector('#faqSelect button[value="' + faqID + '"]');
+                            if (buttonToActivate) {
+                                buttonToActivate.classList.add('active');
+                                activefaqID = faqID;
+                            } else {
+                                console.error('Button with faqID ' + faqID + ' not found');
+                            }
+                            document.getElementById('faq-ques').value = buttonToActivate.dataset.question;
+                            document.getElementById('faq-ans').value = buttonToActivate.dataset.answer;
+                            document.getElementById('faq-order').value = buttonToActivate.dataset.order;
+                            hideLoader();                            
+                        }
+                    </script>
+                    <button id="faq-add" class="CTA info" onclick="addFAQ()">Add new
+                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                    </button>
+
+                </div>
+                <div>
+                    <label for="faq-ques">Question</label>
+                    <input type="text" id="faq-ques"></input>
+
+                    <label for="faq-ans">Answer</label>
+                    <textarea id="faq-ans"></textarea>
+
+                    <label for="faq-order">Order <span class="smallText">(To change what order they display in)</span></label>
+                    <input type="number" id="faq-order" min="1"></input>
+
+
+                    <span class="actions">
+                        <button id="faq-submit" class="CTA green" onclick="sendFAQUpdate()">Update 
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                        </button>
+                        <button id="faq-cancel" class="CTA yellow" onclick="resetFAQ()">Cancel
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>
+                        </button>
+                        <button id="faq-delete" class="CTA red" onclick="sendFAQDelete()">Delete
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                        </button>
+                    </span>
+                </div>
+            
+                <script>
+                    async function addFAQ(){
+                        showLoader();
+                        const response = await fetch('/api/addFAQ');
+                        const res = await response.json();
+                        console.log(res);
+                        if(res.success){
+                            await populateFAQs();
+                            await changeFAQ(res._id);
+                        } else {
+                            alert('Announcement Add Failed');
+                        }
+                        hideLoader();
+                    }
+
+                    async function sendFAQUpdate(){
+                        showLoader();
+                        let question = document.getElementById('faq-ques').value;
+                        let answer = document.getElementById('faq-ans').value;
+                        let order = document.getElementById('faq-order').value;
+                        let id = activefaqID;
+                        let data = {
+                            question: question,
+                            answer: answer,
+                            order: order,
+                            _id: id
+                        }
+                        const response = await fetch('/api/updateFAQ', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        const res = await response.json();
+                        if(res.success){
+                            await populateFAQs();
+                            await changeFAQ(id);
+                        } else {
+                            alert('FAQ Update Failed');
+                        }
+                        hideLoader();
+                    }
+
+                    async function sendFAQDelete(){
+                        showLoader();
+                        let id = activefaqID;
+                        let data = {
+                            _id: id
+                        }
+                        const response = await fetch('/api/deleteFAQ', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        const res = await response.json();
+                        if(res.success){
+                            await populateFAQs();
+                            document.getElementById('faq-ques').value = '';
+                            document.getElementById('faq-ans').value = '';
+                            document.getElementById('faq-order').value= '';
+                        } else {
+                            alert('FAQ Delete Failed');
+                        }
+                        hideLoader();
+                    }
+
+                    async function resetFAQ(){
+                        let id = activeAnnouncementID;
+                        await populateFAQs();
+                        await changeFAQ(id);
+                    }
+
+                </script>
 
             </div>
         </div>
@@ -238,10 +402,8 @@
         function changeTab(id){
             showLoader();
             // Remove 'active' class from all tabs
-            let tabs = document.querySelectorAll('.tab');
-            for(let i = 0; i < tabs.length; i++){
-                tabs[i].classList.remove('active');
-            }
+            document.querySelector('.active').classList.remove('active');
+
             // Add 'active' class to the selected tab
             document.getElementById(id + 'Tab').classList.add('active');
             
@@ -263,6 +425,7 @@
             showLoader();
             await populateAnnouncements();
             await changeTab('announcement'); // Set the default tab here
+            await populateFAQs();
             hideLoader();
         };
 
@@ -332,7 +495,7 @@
             font-size: var(--button-font);
         }
 
-        #announcementSelect{
+        .selectContainer{
             display: flex;
             flex-direction: column;
             height: 200px;
@@ -342,7 +505,7 @@
             overflow-x: hidden;
         }
         
-        #announcementSelect button{
+        .selectContainer button{
             display: flex;
             border-radius: 0;
             border: none;
@@ -353,17 +516,22 @@
             padding: 4px;
         }
 
-        #announcementSelect button:hover, #announcementSelect button:focus, #announcementSelect button:active{
+        .selectContainer button:hover, .selectContainer button:focus, .selectContainer button:active{
             background-color: var(--background-hover);
         }
 
-        #announcementSelect button.active{
+        .selectContainer button.active{
             background-color: var(--accent);
             color: var(--background);
         }
 
-        #announcementSelect button.active:hover, #announcementSelect button.active:focus, #announcementSelect button.active:active{
+        .selectContainer button.active:hover, .selectContainer button.active:focus, .selectContainer button.active:active{
             background-color: var(--accent-hover);
+        }
+
+        .column{
+            display: flex;
+            flex-direction: column;
         }
 
         .smallText{
@@ -372,9 +540,11 @@
             padding-left: 8px;
         }
 
-        input{
+        input, textarea{
             display: flex;
             width: 80%;
+            max-width: 80%;
+            min-width: 80%;
             padding: 8px;
             margin-bottom: 16px;
             border: 1px solid var(--accent);
@@ -393,11 +563,23 @@
             text-decoration: none;
         }
 
+        svg{fill:#000000}
+
         .green{
             background-color: lightgreen;
         }
         .green:hover{
             background-color: rgb(69, 211, 69);
+        }
+
+        .info{
+            margin: 16px 0;
+            width: fit-content;
+            align-self: center;
+            background-color: #87c2d5;
+        }
+        .info:hover{
+            background-color: rgb(59, 153, 185);
         }
 
         .red{

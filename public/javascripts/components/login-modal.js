@@ -153,3 +153,9 @@ async function checkUser(send){
         return false;
         };
 }
+
+document.querySelector('login-modal').shadowRoot.getElementById('pass').addEventListener("keypress", function(event) {
+    if (event.keyCode == 13) {
+        return checkLogin();
+    }
+  });

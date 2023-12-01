@@ -85,7 +85,7 @@ app.get('/api/getFAQ', (req, res) => {
     await client.connect();
     const database = client.db("twmp");
     await database.command({ ping: 1 });
-    const aggr = [{ $sort: { order: -1 } }];
+    const aggr = [{ $sort: { order: 1 } }];
     const coll = database.collection('faqs');
     const cursor = coll.aggregate(aggr);
     const result = await cursor.toArray();
@@ -98,6 +98,101 @@ app.get('/api/getFAQ', (req, res) => {
     await client.close();
   }
 }
+  run().catch(console.dir);
+})
+
+app.post('/api/updateFAQ', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  console.log(req.body);
+  async function run() {
+    try {
+      await client.connect();
+      const dbo = client.db("twmp");
+      await dbo.command({ ping: 1 });
+      const result = await dbo.collection("faqs").findOne({ _id: new ObjectId(req.body._id) });
+      console.log(result);
+      if (result) {
+        console.log("faq found");
+        await dbo.collection("faqs").updateOne({ _id: new ObjectId(req.body._id) }, {$set: {question: req.body.question, answer: req.body.answer, order: req.body.order}});
+        res.json({success: true});
+      } else {
+        console.log("faq not found");
+        res.json({success: false});
+      };
+    } catch (err) {
+      console.error(err);
+    } finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+})
+
+app.post('/api/deleteFAQ', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  async function run() {
+    try {
+      await client.connect();
+      const dbo = client.db("twmp");
+      await dbo.command({ ping: 1 });
+      await dbo.collection("faqs").deleteOne({ _id: new ObjectId(req.body._id) });
+      res.json({success: true});
+    } catch (err) {
+      console.error(err);
+    } finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+})
+
+app.get('/api/addFAQ', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  async function run() {
+    try {
+      await client.connect();
+      const dbo = client.db("twmp");
+      await dbo.command({ ping: 1 });
+      await dbo.collection("faqs").insertOne({question: "New Question", answer: "New Answer", order: 1});
+      const newFAQ = await dbo.collection("faqs").findOne({question: "New Question"});
+      console.log(newFAQ);
+      res.json({success: true, _id: newFAQ._id});
+    } catch (err) {
+      console.error(err);
+    } finally {
+      await client.close();
+    }
+  }
   run().catch(console.dir);
 })
 
@@ -397,6 +492,66 @@ app.post('/api/updateAnnouncement', function(req, res){
         console.log("announcement not found");
         res.json({success: false});
       };
+    } catch (err) {
+      console.error(err);
+    } finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+}
+)
+
+app.get('/api/addAnnouncement', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  async function run() {
+    try {
+      await client.connect();
+      const dbo = client.db("twmp");
+      await dbo.command({ ping: 1 });
+      await dbo.collection("announcements").insertOne({name: "New Announcement", startDate: new Date(), endDate: new Date(), message: "New Announcement"});
+      const newAnn = await dbo.collection("announcements").findOne({name: "New Announcement"});
+      console.log(newAnn);
+      res.json({success: true, _id: newAnn._id});
+    } catch (err) {
+      console.error(err);
+    } finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+}
+)
+
+app.post('/api/deleteAnnouncement', function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+  const uri = process.env.MONGO_URI;
+  const client = new MongoClient(uri,  {
+          serverApi: {
+              version: ServerApiVersion.v1,
+              strict: true,
+              deprecationErrors: true,
+          }
+      }
+  );
+  async function run() {
+    try {
+      await client.connect();
+      const dbo = client.db("twmp");
+      await dbo.command({ ping: 1 });
+      await dbo.collection("announcements").deleteOne({ _id: new ObjectId(req.body._id) });
+      res.json({success: true});
     } catch (err) {
       console.error(err);
     } finally {

@@ -1,0 +1,16 @@
+# robots.txt for https://twmp.org
+
+# Allow all robots complete access
+User-agent: *
+Disallow:
+
+# Block access to specific folders
+# Disallow: /private/
+# Disallow: /tmp/
+
+# Block access to specific files
+# Disallow: /private_file.html
+# Disallow: /hidden/
+
+# Sitemap location
+Sitemap: http://twwmp.org/sitemap.xml

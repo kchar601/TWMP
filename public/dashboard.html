@@ -26,7 +26,8 @@
     <script defer src="javascripts/load-animation.js"></script>
     <script defer src="javascripts/components/nav-bar.js"></script>
     <script defer src="javascripts/components/foot-bar.js"></script>
-    <script defer src="javascripts/components/connect-bar.js"></script>
+    <script defer src="javascripts/components/tab-bar.js"></script>
+    <script defer src="javascripts/components/editable-meeting-details.js"></script>
     <link rel="icon" type="image/x-icon" href="./images/twmplogo.png">
 
 </head>
@@ -34,6 +35,7 @@
     <ann-bar></ann-bar>
     <nav-bar></nav-bar>
 
+    <div class="hero"><h2>Admin Dashboard</h2></div>
     <div class="content-wrapper">
         <i class="loader --6"></i>
         <div class="tab-wrapper">
@@ -44,7 +46,7 @@
         <div class="content">
             <div class="announcement">
                 <div class="column">
-                    <label for="announcementSelect">Select Announcement to Edit:</label>
+                    <label>Select Announcement to Edit:</label>
                     <div id="announcementSelect" name="Announcements" class="selectContainer"></div>
                     <script>
                         async function getAnnouncements(){
@@ -214,14 +216,65 @@
 
             <div class="meetings">
 
-                Some meeting content
+                <tab-bar editable></tab-bar>
+                <div class="calendar-wrapper">
+                    <div id="Monday" class="calendar-card first">
+                        <div class="meeting-Wrapper"></div>
+                    </div>
+                    <div id="Tuesday" class="calendar-card">
+                        <div class="meeting-Wrapper"></div>
+                    </div>
+                    <div id="Wednesday" class="calendar-card">
+                        <div class="meeting-Wrapper"></div>
+                    </div>
+                    <div id="Thursday" class="calendar-card">
+                        <div class="meeting-Wrapper"></div>
+                    </div>
+                    <div id="Friday" class="calendar-card">
+                        <div class="meeting-Wrapper"></div>
+                    </div>
+                    <div id="Saturday" class="calendar-card">
+                        <div class="meeting-Wrapper"></div>
+                    </div>
+                    <div id="Sunday" class="calendar-card last">
+                        <div class="meeting-Wrapper"></div>
+                    </div>
+                </div>
 
+            </div>
+
+            <div class="modal" data-modal-name="modal">
+                <div class="modal-bg"></div>
+                <div class="modal-container">
+                    <div class="meeting-modal">
+
+                        <label for="meeting-name">Meeting Title</label>
+                        <input id="meeting-name"></input>
+
+                        <label for="meeting-group">Group</label>
+                        <input id="meeting-group"></input>
+
+                        <label for="meeting-time">Time</label>
+                        <input  id="meeting-time"></input>
+
+                        <label for="meeting-location">Location<span class="smallText">(Optional)</span></label>
+                        <input id="meeting-location"></input>
+
+                        <label for="meeting-open">Open?</label>
+                        <input type="checkbox" id="meeting-open"></input>
+
+                        <label for="meeting-link">Link<span class="smallText">(Optional)</span></label>
+                        <input id="meeting-link"></input>
+                        
+                    <button class="modal-close" id="modalClose"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" class="svgred"><style>.svgred{fill:red}</style><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg></button>
+                    </div>
+                </div>
             </div>
 
             <div class="faqs">
 
                 <div class="column">
-                    <label for="faqSelect">Select FAQ to Edit:</label>
+                    <label>Select FAQ to Edit:</label>
                     <div id="faqSelect" name="FAQs" class="selectContainer"></div>
                     <script>
                         async function getFAQs(){
@@ -386,11 +439,8 @@
         </div>
     </div>
     <!--
-    //TODO: create ability to add / delete announcements and set end dates
 
-    //TODO: create ability to add / delete FAQs
-
-    //TODO: create ability to add / delete meetings
+    TODO: create ability to add / delete meetings
     -->
 
 
@@ -450,19 +500,25 @@
             display: none;
         }
 
-        .active-content{
+        .announcement.active-content, .faqs.active-content{
             display: grid;
             grid-template-columns: .6fr 1.4fr;
             grid-gap: 64px;
             width: 90%;
             padding-bottom: 32px;
             margin: auto;
+            margin-top: 32px;
+        }
+
+        .meetings.active-content{
+            display: flex;
+            width: 100%;
+            margin: auto;
         }
 
         .tab-wrapper{
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            margin-bottom: 32px;
         }
         .tab{
             background-color: var(--background);
@@ -472,7 +528,7 @@
             padding: 16px 32px;
             border-radius: 6px 6px 0 0;
             font-family: var(--head-font-type);
-            font-size: var(--button-font);
+            font-size: var(--h4-font);
         }
         .tab:hover, .tab:focus, .tab:active{
             background-color: var(--background-hover);
@@ -601,6 +657,135 @@
             width: 83%;
             justify-content: space-between;
             max-width: 100%;
+        }
+        .calendar-wrapper{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        .first{
+            border-bottom-left-radius: 6px;
+        }
+
+        .last{
+            border-bottom-right-radius: 6px;
+            border-right: none;
+        }
+
+        .calendar-card {
+            width: calc(100% / 7);
+            background-color: var(--background);
+            color: var(--text-color);
+            font-family: 'gabarito', sans-serif;
+            border-right: var(--accent) 1px solid;
+            text-align: center;
+        }
+
+        .calendar-card > h2 {
+            padding: 8px 32px;
+            font-size: var(--h5-font);
+            font-family: var(--body-font-type);
+            text-shadow: none;
+            border-bottom: var(--accent) 1px solid;
+            grid-row: 1; /* Explicitly placing the h2 in the first row */
+        }
+        .meeting-Wrapper{
+            margin: 8px;
+            padding: 0px; 
+        }
+
+        meeting-details{
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 1273px) {
+            .calendar-wrapper{
+                display: flex;
+                flex-direction: column;
+            }
+            .calendar-card{
+                width:100%;
+            }
+            .meeting-Wrapper{
+                justify-self: center;
+                justify-items: center;
+            }
+
+            .first{
+                border-bottom-left-radius: 0px;
+            }
+
+            .last{
+                border-bottom-right-radius: 6px;
+                border-bottom-left-radius: 6px;
+            }
+        }
+        .modal {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 11;
+        }
+
+        .open {
+            visibility: visible;
+            opacity: 1;
+            transition-delay: 0s;
+            display: flex !important;
+        }
+        .modal-bg {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+        }
+        .modal-container {
+            border-radius: 10px;
+            background: #fff;
+            position: relative;
+            padding: 30px;
+            color: black;
+        }
+        .modal-close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            outline: none;
+            appearance: none;
+            color: red;
+            background: none;
+            border: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            }
+        
+        .modal-container h4{
+            font-size:var(--h3-font);
+        }
+
+        .modal-container span, .modal-container a{
+            font-size:var(--h5-font);
+        }
+
+        .meeting-modal{
+            display: flex;
+            flex-direction: column;
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+
+        .modal-link{
+            color: var(--accent);
+            text-decoration: underline;
         }
     </style>
 </body>

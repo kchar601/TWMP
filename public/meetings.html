@@ -47,6 +47,22 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" data-modal-name="modal" hidden>
+        <div class="modal-bg modal-exit"></div>
+        <div class="modal-container">
+            <div class="meeting-modal">
+                <h4 class="modal-name"></h4>
+                <span class="modal-group"></span>
+                <span class="modal-time"></span>
+                <span class="modal-location"></span>
+                <span class="modal-open"></span>
+                <a class="modal-link"></a>
+            <button class="modal-close modal-exit" id="modalClose"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:red}</style><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg></button>
+            </div>
+        </div>
+    </div>
+
     <connect-bar></connect-bar>
     <foot-bar></foot-bar>
 
@@ -113,6 +129,72 @@
                 border-bottom-right-radius: 6px;
                 border-bottom-left-radius: 6px;
             }
+        }
+        .modal {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 11;
+        }
+
+        .open {
+            visibility: visible;
+            opacity: 1;
+            transition-delay: 0s;
+        }
+        .modal-bg {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+        }
+        .modal-container {
+            max-width: 70%;
+            border-radius: 10px;
+            background: #fff;
+            position: relative;
+            padding: 30px;
+            color: black;
+        }
+        .modal-close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            outline: none;
+            appearance: none;
+            color: red;
+            background: none;
+            border: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            }
+        
+        .modal-container h4{
+            font-size:var(--h3-font);
+        }
+
+        .modal-container span, .modal-container a{
+            font-size:var(--h5-font);
+        }
+
+        .meeting-modal{
+            display: flex;
+            flex-direction: column;
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+
+        .modal-link{
+            color: var(--accent);
+            text-decoration: underline;
         }
     </style>
 </body>

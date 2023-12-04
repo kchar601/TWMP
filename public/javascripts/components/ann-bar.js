@@ -103,7 +103,7 @@ async function getAnnouncements() {
         body: JSON.stringify(body),
     });
     const data = await response.json();
-    if (data[0].closed === false || data[0].closed === undefined){
+    if (data[0] != null && (data[0].closed === false || data[0].closed === undefined)){
         document.querySelector('.ann-target').innerHTML = `<ann-bar closed="false"></ann-bar>`;
         document.querySelector('ann-bar').textContent = data[0].message;
     }

@@ -205,27 +205,21 @@ async function addMeetingsToDOM(meetingsArray) {
     document.querySelectorAll('meeting-details').forEach(meeting => {
         meeting.addEventListener('click', function(event) {
             const meetingElement = event.currentTarget;
+            console.log(meetingElement);
             const link = meetingElement.getAttribute('link');
+
+            
     
             document.querySelector('.modal').classList.add("open");
-            document.querySelector('.modal-name').textContent = meetingElement.getAttribute('name');
-            document.querySelector('.modal-group').textContent = meetingElement.getAttribute('group');
-            document.querySelector('.modal-time').textContent = meetingElement.getAttribute('time');
-            document.querySelector('.modal-location').textContent = meetingElement.getAttribute('location');
+            console.log(document.querySelector('.modal'));
+            document.getElementById('meeting-name').value = meetingElement.getAttribute('name');
+            document.getElementById('meeting-group').value = meetingElement.getAttribute('group');
+            document.getElementById('meeting-time').value = meetingElement.getAttribute('time');
+            document.getElementById('meeting-location').value = meetingElement.getAttribute('location');
     
-            if(link) {
-                document.querySelector('.modal-link').textContent = 'Join Meeting'; 
-                document.querySelector('.modal-link').href = link;
-                document.querySelector('.modal-link').removeAttribute('hidden');
-            } else {
-                document.querySelector('.modal-link').setAttribute('hidden', true);
-            }
+            link ? document.getElementById('.meeting-link').value = link : document.getElementById('meeting-link').value = '';
     
-            if(meetingElement.getAttribute('open') !== 'false'){
-                document.querySelector('.modal-open').textContent = 'Open Meeting';
-            } else {
-                document.querySelector('.modal-open').textContent = 'Closed Meeting';
-            }
+            meetingElement.getAttribute('open') !== 'false' ? document.getElementById('meeting-open').checked = true : document.getElementById('meeting-open').checked = false;
         });
     });    
     document.getElementById('modalClose').addEventListener('click', () => {
@@ -233,4 +227,3 @@ async function addMeetingsToDOM(meetingsArray) {
     });
     hideLoader();
 }
-

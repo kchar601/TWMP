@@ -133,7 +133,6 @@ function checkLogin(){
 }
 
 async function checkUser(send){
-    console.log(send);
     const response = await fetch('/api/checkLogin', {
         method: 'POST',
     headers: {

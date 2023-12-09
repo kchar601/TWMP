@@ -314,7 +314,7 @@ app.post('/api/filterMeetings', async (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       const email = req.body.email;
       const name = req.body.name;
-      const message = req.body.message;
+      const message = req.body.msg;
       const html = `<p>Name: ${name}</p><p>Return email: ${email}</p><p>Message: ${message}</p>`;
   
       const mailOptions = {

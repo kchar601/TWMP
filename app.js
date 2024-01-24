@@ -315,12 +315,12 @@ app.post('/api/filterMeetings', async (req, res) => {
       const email = req.body.email;
       const name = req.body.name;
       const message = req.body.msg;
-      const html = `<p>Name: ${name}</p><p>Return email: ${email}</p><p>Message: ${message}</p>`;
+      const html = `<p><b>Name:</b> ${name}</p><p><b>Return email:</b> ${email}</p><p><b>Message:</b> ${message}</p>`;
   
       const mailOptions = {
         from: 'user@twmp.org',
-        to: 'charltonkeith8@gmail.com',
-        subject: 'Contact Form',
+        to: 'communications@twmp.org',
+        subject: 'TWMP Contact Form',
         html: html
       };
       
@@ -396,3 +396,68 @@ app.post('/api/deleteAnnouncement', isAdmin, async (req, res) => {
     res.status(500).json({ error: "An error occurred while deleting the announcement" });
   }
 });
+<<<<<<< HEAD
+=======
+
+app.get('/api/addMeeting', isAdmin, async (req, res) => {
+  try {
+    res.setHeader('Content-Type', 'application/json');
+
+    const newMeeting = {name: "New Meeting", type: "meeting", medium: "zoom", open: true, link: "https://zoom.us/j/1234567890", description: "New Meeting"};
+    const insertResult = await req.db.collection("meetings").insertOne(newMeeting);
+
+    if (insertResult.acknowledged && insertResult.insertedId) {
+      console.log("New Meeting added:", insertResult.insertedId);
+      res.json({success: true, _id: insertResult.insertedId});
+    } else {
+      res.json({success: false, message: "Failed to add new meeting"});
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred while adding a new meeting" });
+  }
+});
+
+app.post('/api/deleteMeeting', isAdmin, async (req, res) => {
+  try {
+    res.setHeader('Content-Type', 'application/json');
+
+    const deleteResult = await req.db.collection("meetings").deleteOne({ _id: new ObjectId(req.body._id) });
+
+    if (deleteResult.deletedCount > 0) {
+      console.log("Meeting deleted");
+      res.json({success: true});
+    } else {
+      console.log("Meeting not found");
+      res.json({success: false});
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred while deleting the meeting" });
+  }
+});
+
+app.post('/api/updateMeeting', isAdmin, async (req, res) => {
+  try {
+    res.setHeader('Content-Type', 'application/json');
+    console.log(req.body);
+
+    const _id = new ObjectId(req.body._id);
+
+    const result = await req.db.collection("meetings").findOne({ _id: _id });
+    console.log(result);
+
+    if (result) {
+      console.log("meeting found");
+      await req.db.collection("meetings").updateOne({ _id: _id }, {$set: {name: req.body.name, type: req.body.type, medium: req.body.medium, open: req.body.open, link: req.body.link, description: req.body.description}});
+      res.json({success: true});
+    } else {
+      console.log("meeting not found");
+      res.json({success: false});
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred while updating the meeting" });
+  }
+});
+>>>>>>> 90ff544ccf9dfcf5cca8f97d53f25025e7673857

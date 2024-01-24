@@ -56,7 +56,12 @@
             <p class="indent">26 South Third Street</p>
             <p class="indent">Warrenton, VA 20186</p>
             <a href="https://www.google.com/maps/dir//26+S+Third+St,+Warrenton,+VA+20186/@39.7642314,-79.1369156,8z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89b67d9e005b36d9:0x917ec1a27f814017!2m2!1d-77.7947286!2d38.7124836!3e0?entry=ttu"><button>Directions <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#ffffff}</style><path d="M350 334.5c3.8 8.8 2 19-4.6 26l-136 144c-4.5 4.8-10.8 7.5-17.4 7.5s-12.9-2.7-17.4-7.5l-136-144c-6.6-7-8.4-17.2-4.6-26s12.5-14.5 22-14.5h88l0-192c0-17.7-14.3-32-32-32H32C14.3 96 0 81.7 0 64V32C0 14.3 14.3 0 32 0l80 0c70.7 0 128 57.3 128 128l0 192h88c9.6 0 18.2 5.7 22 14.5z"/></svg></button></a>
-            </div>
+        </div>
+        <div class="address-wrap2">
+            <h4>Our PO Box</h4>
+            <p class="indent">PO BOX 3103</p>
+            <p class="indent">Warrenton, VA 20188-1803</p>
+        </div>
     </div>
 
     <connect-bar></connect-bar>
@@ -120,7 +125,15 @@
             grid-template-rows: auto;
             align-items: center;
             width: max-content;
-            margin: 16px 32px;
+            padding: 16px 32px;
+            border-right: 1px solid var(--accent);
+        }
+        .address-wrap2{
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            width: max-content;
+            padding: 16px 0px 80px 0px;
         }
 
         #map {
@@ -129,7 +142,7 @@
         }
         .map-wrap{
             display: grid;
-            grid-template-columns: 1.2fr .8fr;
+            grid-template-columns: 1.2fr .4fr .4fr;
             justify-content: center;
             align-items: center;
             border: 1px solid var(--accent);

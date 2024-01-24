@@ -396,8 +396,6 @@ app.post('/api/deleteAnnouncement', isAdmin, async (req, res) => {
     res.status(500).json({ error: "An error occurred while deleting the announcement" });
   }
 });
-<<<<<<< HEAD
-=======
 
 app.get('/api/addMeeting', isAdmin, async (req, res) => {
   try {
@@ -460,4 +458,3 @@ app.post('/api/updateMeeting', isAdmin, async (req, res) => {
     res.status(500).json({ error: "An error occurred while updating the meeting" });
   }
 });
->>>>>>> 90ff544ccf9dfcf5cca8f97d53f25025e7673857

@@ -63,8 +63,10 @@
               "content": "ask for and add open status for online meetings",
               "id": 1698901858559,
               "level": "default",
-              "done": false,
-              "start": 1698901858560
+              "done": true,
+              "start": 1698901858560,
+              "focus": false,
+              "end": 1703007065387
             }
           },
           {
@@ -85,9 +87,10 @@
           "content": "Meetings",
           "id": 1697448645291,
           "level": "warning",
-          "done": false,
+          "done": true,
           "start": 1697448645291,
-          "focus": true
+          "focus": false,
+          "end": 1703007097025
         }
       },
       {
@@ -273,8 +276,10 @@
               "content": "Include modal with tabs",
               "id": 1697448993150,
               "level": "default",
-              "done": false,
-              "start": 1697448993150
+              "done": true,
+              "start": 1697448993150,
+              "focus": false,
+              "end": 1703007071781
             }
           },
           {
@@ -287,8 +292,10 @@
                   "content": "Ability to add / delete users (?)",
                   "id": 1697449017504,
                   "level": "default",
-                  "done": false,
-                  "start": 1697449017504
+                  "done": true,
+                  "start": 1697449017504,
+                  "focus": false,
+                  "end": 1703007072599
                 }
               },
               {
@@ -298,8 +305,10 @@
                   "content": "CRUD announcements",
                   "id": 1697449038957,
                   "level": "default",
-                  "done": false,
-                  "start": 1697449038957
+                  "done": true,
+                  "start": 1697449038957,
+                  "focus": false,
+                  "end": 1703007073095
                 }
               },
               {
@@ -309,8 +318,10 @@
                   "content": "CRUD faq questions",
                   "id": 1697449159149,
                   "level": "default",
-                  "done": false,
-                  "start": 1697449159149
+                  "done": true,
+                  "start": 1697449159149,
+                  "focus": false,
+                  "end": 1703007073648
                 }
               },
               {
@@ -321,7 +332,9 @@
                   "id": 1697449191509,
                   "level": "default",
                   "done": false,
-                  "start": 1697449191509
+                  "start": 1697449191509,
+                  "focus": false,
+                  "end": 1703007074177
                 }
               },
               {
@@ -331,8 +344,10 @@
                   "content": "Retrieve email list ('mailto:' so that its already filled out)",
                   "id": 1697449267158,
                   "level": "default",
-                  "done": false,
-                  "start": 1697449267158
+                  "done": true,
+                  "start": 1697449267158,
+                  "focus": false,
+                  "end": 1703007078545
                 }
               }
             ],
@@ -340,8 +355,10 @@
               "content": "Include the following functionalities:",
               "id": 1697449001790,
               "level": "success",
-              "done": false,
-              "start": 1697449001790
+              "done": true,
+              "start": 1697449001790,
+              "focus": false,
+              "end": 1703007072178
             }
           }
         ],
@@ -349,8 +366,10 @@
           "content": "Dashboard",
           "id": 1697448970613,
           "level": "warning",
-          "done": false,
-          "start": 1697448970613
+          "done": true,
+          "start": 1697448970613,
+          "focus": false,
+          "end": 1703007070782
         }
       },
       {
@@ -444,7 +463,9 @@
               "id": 1698902088937,
               "level": "default",
               "done": false,
-              "start": 1698902088937
+              "start": 1698902088937,
+              "focus": false,
+              "end": 1703007091354
             }
           },
           {
@@ -455,7 +476,9 @@
               "id": 1698902115986,
               "level": "default",
               "done": false,
-              "start": 1698902115986
+              "start": 1698902115986,
+              "focus": false,
+              "end": 1703007091775
             }
           }
         ],
@@ -464,7 +487,9 @@
           "id": 1698902078048,
           "level": "warning",
           "done": false,
-          "start": 1698902078048
+          "start": 1698902078048,
+          "focus": false,
+          "end": 1703007090846
         }
       }
     ],
@@ -474,11 +499,15 @@
       1697448645291,
       1698902088937,
       1698902078048,
-      1697448970613
+      1697448970613,
+      1697449001790
     ],
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
     "virtual": false,
+    "timelines": [
+      1697449191509
+    ],
     "showLine": false,
     "playFontSize": 24,
     "title": "twmp",
@@ -486,6 +515,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1700448951696"
+    "version": "1704147284055"
   }
 }

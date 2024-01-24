@@ -220,7 +220,7 @@ footBar.innerHTML = /*html*/`
     </div>
 </footer>
 <div class="hero">
-    <p class="prevent-select small-text">© The Warrenton Meeting Place 2023</p>
+    <p class="prevent-select small-text">© The Warrenton Meeting Place 2024</p>
 </div>
 `;
 

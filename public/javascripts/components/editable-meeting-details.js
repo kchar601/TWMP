@@ -1,5 +1,4 @@
-
-var activeID;
+var activeMeetingID;
 
 const meetingTemplate = document.createElement('template');
 meetingTemplate.innerHTML = /*html*/`
@@ -206,6 +205,7 @@ async function addMeetingsToDOM(meetingsArray) {
         meeting.addEventListener('click', function(event) {
             const meetingElement = event.currentTarget;
             console.log(meetingElement);
+            activeMeetingID = meetingElement.getAttribute('_id');
             const link = meetingElement.getAttribute('link');
 
             
@@ -214,12 +214,15 @@ async function addMeetingsToDOM(meetingsArray) {
             console.log(document.querySelector('.modal'));
             document.getElementById('meeting-name').value = meetingElement.getAttribute('name');
             document.getElementById('meeting-group').value = meetingElement.getAttribute('group');
+            document.getElementById('meeting-day').value = meetingElement.parentNode.parentNode.id;
             document.getElementById('meeting-time').value = meetingElement.getAttribute('time');
             document.getElementById('meeting-location').value = meetingElement.getAttribute('location');
     
             link ? document.getElementById('.meeting-link').value = link : document.getElementById('meeting-link').value = '';
     
             meetingElement.getAttribute('open') !== 'false' ? document.getElementById('meeting-open').checked = true : document.getElementById('meeting-open').checked = false;
+
+            meetingElement.getAttribute('type') = 'in-person' ? document.getElementById('meeting-type').value = 'in-person' : document.getElementById('meeting-type').value = 'online';
         });
     });    
     document.getElementById('modalClose').addEventListener('click', () => {

@@ -62,7 +62,6 @@ function isAdmin(req, res, next) {
 app.post('/webhook', (req, res) => {
   const { headers, body } = req;
   if (headers['x-github-event'] === 'push') {
-    // Execute your script to pull the latest code and restart the server
     exec('sh webhook.sh', (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);

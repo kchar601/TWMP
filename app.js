@@ -62,7 +62,7 @@ function isAdmin(req, res, next) {
 app.post('/webhook', (req, res) => {
   const { headers, body } = req;
   if (headers['x-github-event'] === 'push') {
-    exec('sh webhook.sh', (error, stdout, stderr) => {
+    exec('sh /root/TWMP/webhook.sh', (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;

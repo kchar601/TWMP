@@ -47,9 +47,7 @@ const transporter = nodemailer.createTransport({
 const uri = process.env.MONGO_URI;
 
 app.listen(port, () => {
-
   console.log(`Example app listening at http://localhost:${port}`)
-
 })
 
 function isAdmin(req, res, next) {

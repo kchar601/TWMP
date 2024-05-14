@@ -163,7 +163,7 @@ navBar.innerHTML = /*html*/`
         <a class="mainNav" href='/about.html'><li>About</li></a>
         <a class="mainNav" href='/faq.html'><li>FAQ</li></a>
         <div class="donateWrapper">
-        <a class="donate"><button>Donate</button></a>
+        <a class="donate" href='https://www.paypal.com/donate/?hosted_button_id=AL8TEQ6B3UPKN' target="_blank"><button>Donate</button></a>
         </div>
     </ul>
 </nav>

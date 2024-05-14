@@ -190,7 +190,7 @@ footBar.innerHTML = /*html*/`
             <a href="/contact.html"><li>Contact</li></a>
             <a href="/about.html"><li>About</li></a>
             <a href="/faq.html"><li>FAQ</li></a>
-            <a href="/donate.html" class="special"><li>Donate</li></a>
+            <a href="https://www.paypal.com/donate/?hosted_button_id=AL8TEQ6B3UPKN" class="special" target="_blank"><li>Donate</li></a>
         </ul>
     </div>
     <div>

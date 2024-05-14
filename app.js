@@ -8,6 +8,7 @@ const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 var cookie = require('cookie');
 const mime = require('mime');
+const { exec } = require('child_process');
 const nodemailer = require('nodemailer');
 const app = express()
 const port = 3000
@@ -57,6 +58,22 @@ function isAdmin(req, res, next) {
     res.json([false]);
   }
 };
+
+app.post('/webhook', (req, res) => {
+  const { headers, body } = req;
+  if (headers['x-github-event'] === 'push') {
+    // Execute your script to pull the latest code and restart the server
+    exec('sh webhook.sh', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.error(`stderr: ${stderr}`);
+    });
+  }
+  res.status(200).send('Webhook received!');
+});
 
 app.get('/api/checkSession', isAdmin, (req, res) => {
   res.setHeader('Content-Type', 'application/json');

@@ -1,5 +1,5 @@
-const faqQuestionTemplate = document.createElement('template');
-faqQuestionTemplate.innerHTML = /*html*/`
+const faqQuestionTemplate = document.createElement("template");
+faqQuestionTemplate.innerHTML = /*html*/ `
     <style>
         :host {
             display: flex;
@@ -18,6 +18,10 @@ faqQuestionTemplate.innerHTML = /*html*/`
             font-size: var(--h4-font);
             padding: 16px 16px;
             list-style: none;
+        }
+
+        .question:not(:last-child) {
+            border-bottom: var(--accent) 1px solid;
         }
 
         details {
@@ -88,44 +92,48 @@ faqQuestionTemplate.innerHTML = /*html*/`
 `;
 
 class FaqQuestion extends HTMLElement {
-    
-    constructor() {
-        super();
-        this.question = this.getAttribute('question');
-        this.answer = this.getAttribute('answer');
-        const shadow = this.attachShadow({mode: 'open'});
-        var template = faqQuestionTemplate.content.cloneNode(true);
-        template.querySelector('.question').textContent = this.question;
-        template.querySelector('.answer').textContent = this.answer;
-        shadow.append(template);
-    }
-
+  constructor() {
+    super();
+    this.question = this.getAttribute("question");
+    this.answer = this.getAttribute("answer");
+    const shadow = this.attachShadow({ mode: "open" });
+    var template = faqQuestionTemplate.content.cloneNode(true);
+    template.querySelector(".question").textContent = this.question;
+    template.querySelector(".answer").textContent = this.answer;
+    shadow.append(template);
+  }
 }
 
-window.customElements.define('faq-question', FaqQuestion);
+window.customElements.define("faq-question", FaqQuestion);
 
 async function getFAQ() {
-    const response = await fetch('/api/getFAQ');
-    const data = await response.json();
-    await addFAQ(data);
-    checkSiblings();
+  const response = await fetch("/api/getFAQ");
+  const data = await response.json();
+  await addFAQ(data);
+  checkSiblings();
 }
 
-function addFAQ(data){
-    for(var i = 0; i < data.length; i++){
-        document.querySelector('.content-wrapper').innerHTML+=  
-        `<faq-question question="${data[i].question}" answer="${data[i].answer}"></faq-question>`
-        ;
-    }
-    hideLoader();
+function addFAQ(data) {
+  for (var i = 0; i < data.length; i++) {
+    document.querySelector(
+      ".content-wrapper"
+    ).innerHTML += `<faq-question question="${data[i].question}" answer="${data[i].answer}"></faq-question>`;
+  }
+  hideLoader();
 }
 
-function checkSiblings(){
-    var select = document.querySelector('.content-wrapper').firstChild.shadowRoot.querySelector('.question').classList.add('first');
-    var select = document.querySelector('.content-wrapper').lastChild.shadowRoot.querySelector('.question').classList.add('last');
+function checkSiblings() {
+  var select = document
+    .querySelector(".content-wrapper")
+    .firstChild.shadowRoot.querySelector(".question")
+    .classList.add("first");
+  var select = document
+    .querySelector(".content-wrapper")
+    .lastChild.shadowRoot.querySelector(".question")
+    .classList.add("last");
 }
 
 window.onload = () => {
-    showLoader();
-    getFAQ();
-}
+  showLoader();
+  getFAQ();
+};

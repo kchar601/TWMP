@@ -10,7 +10,6 @@ faqQuestionTemplate.innerHTML = /*html*/ `
             width: 100%;
             border-radius: 8px;
             font-family: var(--body-font-type);
-            
         }
 
         .question {
@@ -27,17 +26,13 @@ faqQuestionTemplate.innerHTML = /*html*/ `
         details {
             align-items: center; /* Centers children vertically */
             justify-content: start; /* Aligns children to the start (left for LTR languages) */
+            width: 100%;
+            background-color: transparent;
         }
 
         .question:hover {
             cursor: pointer;
             background-color: var(--background-hover);
-        }
-
-        details {
-            width: 100%;
-            background-color: transparent;
-            display: flex;
         }
 
         details[open] .question ~ * {

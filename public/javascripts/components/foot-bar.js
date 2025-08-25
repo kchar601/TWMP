@@ -1,5 +1,5 @@
-const footBar = document.createElement('template');
-footBar.innerHTML = /*html*/`
+const footBar = document.createElement("template");
+footBar.innerHTML = /*html*/ `
 <style>
     :host {
         background-color: var(--background);
@@ -220,42 +220,42 @@ footBar.innerHTML = /*html*/`
     </div>
 </footer>
 <div class="hero">
-    <p class="prevent-select small-text">© The Warrenton Meeting Place 2024</p>
+    <p class="prevent-select small-text">© The Warrenton Meeting Place ${new Date().getFullYear()}</p>
 </div>
 `;
 
 class FootBar extends HTMLElement {
-    constructor() {
-        super();
-        const shadow = this.attachShadow({mode: 'open'});
-        shadow.append(footBar.content.cloneNode(true));
-    }
-
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.append(footBar.content.cloneNode(true));
+  }
 }
 
-window.customElements.define('foot-bar', FootBar);
+window.customElements.define("foot-bar", FootBar);
 
-async function addEmail(){
-    const email = document.querySelector('foot-bar').shadowRoot.querySelector('#emailList').value;
-    if(email == ""){
-        alert("Please enter a valid email address"); 
-        return false;
-    };
-    const body = {email: email};
-    const response = await fetch('/api/addEmail', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body),
-    });
-    const result = await response.json();
-    if(result.success){
-        alert("Thank you for subscribing to our mailing list!");
-        return true;
-    }
-    else{
-        alert("An error occured. Please try again later.");
-        return false;
-    }
+async function addEmail() {
+  const email = document
+    .querySelector("foot-bar")
+    .shadowRoot.querySelector("#emailList").value;
+  if (email == "") {
+    alert("Please enter a valid email address");
+    return false;
+  }
+  const body = { email: email };
+  const response = await fetch("/api/addEmail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  const result = await response.json();
+  if (result.success) {
+    alert("Thank you for subscribing to our mailing list!");
+    return true;
+  } else {
+    alert("An error occured. Please try again later.");
+    return false;
+  }
 }

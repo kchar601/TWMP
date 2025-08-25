@@ -331,10 +331,10 @@
                   "content": "CRUD calendar",
                   "id": 1697449191509,
                   "level": "default",
-                  "done": false,
+                  "done": true,
                   "start": 1697449191509,
                   "focus": false,
-                  "end": 1703007074177
+                  "end": 1756081820485
                 }
               },
               {
@@ -462,10 +462,10 @@
               "content": "Include current forms from website to allow offline donations",
               "id": 1698902088937,
               "level": "default",
-              "done": false,
+              "done": true,
               "start": 1698902088937,
               "focus": false,
-              "end": 1703007091354
+              "end": 1756081829981
             }
           },
           {
@@ -475,10 +475,10 @@
               "content": "add paypal api (modal) on page to allow donation without leaving the site",
               "id": 1698902115986,
               "level": "default",
-              "done": false,
+              "done": true,
               "start": 1698902115986,
               "focus": false,
-              "end": 1703007091775
+              "end": 1756081830296
             }
           }
         ],
@@ -486,10 +486,10 @@
           "content": "Donations Page",
           "id": 1698902078048,
           "level": "warning",
-          "done": false,
+          "done": true,
           "start": 1698902078048,
           "focus": false,
-          "end": 1703007090846
+          "end": 1756081827932
         }
       }
     ],
@@ -505,9 +505,7 @@
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
     "virtual": false,
-    "timelines": [
-      1697449191509
-    ],
+    "timelines": [],
     "showLine": false,
     "playFontSize": 24,
     "title": "twmp",
@@ -515,6 +513,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1704147284055"
+    "version": "1756081830333"
   }
 }

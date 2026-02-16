@@ -284,44 +284,5 @@
         }
       }
     </style>
-    <script>
-      function initMap() {
-        var twmpLocation = { lat: 38.71244, lng: -77.79477 };
-
-        var map = new google.maps.Map(document.getElementById("map"), {
-          center: twmpLocation,
-          zoom: 14,
-        });
-
-        var marker = new google.maps.Marker({
-          position: twmpLocation,
-          map: map,
-          title: "The Warrenton Meeting Place",
-        });
-      }
-
-      async function fetchApiKey() {
-        try {
-          const response = await fetch("/api/maps-api-key"); // Replace with your server endpoint
-          const data = await response.json();
-          return data.apiKey; // Make sure your server sends the key in an `apiKey` field
-        } catch (error) {
-          console.error("Error fetching the API key:", error);
-          return null; // Handle the error appropriately
-        }
-      }
-
-      async function loadGoogleMapsScript() {
-        var googleMapsApiKey = await fetchApiKey();
-
-        var script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap`;
-        script.async = true;
-        script.defer = true;
-        document.head.appendChild(script);
-      }
-
-      window.addEventListener("load", loadGoogleMapsScript);
-    </script>
   </body>
 </html>
